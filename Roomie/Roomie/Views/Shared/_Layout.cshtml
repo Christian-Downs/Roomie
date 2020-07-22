@@ -1,0 +1,68 @@
+﻿<!DOCTYPE HTML>
+<!--
+    Intensify by TEMPLATED
+    templated.co
+    Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="~/Content/main.css" />
+</head>
+<body class="subpage">
+
+    <!-- Header -->
+    <header id="header">
+        <nav class="left">
+            <a href="#menu"><span>Menu</span></a>
+        </nav>
+        <a href="~/Views/Home/Index.cshtml" class="logo">Roomie</a>
+        <nav class="right">
+            @Html.ActionLink("Register", "Register", "AccountController", null, new { @class = "button alt" })
+            <a href="~/Views/Account/Register.cshtml" class="button alt">Register</a>
+            <a href="~/Views/Account/Login.cshtml" class="button alt">Log in</a>
+            @Html.Partial("_LoginPartial")
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <ul class="links">
+            <li>@Html.ActionLink("Find People", "Index", "Home")</li>
+            <li>@Html.ActionLink("Find A Place", "Index", "Apartments")</li>
+            <li><a href="elements.html">Elements</a></li>
+        </ul>
+        <ul class="actions vertical">
+            <li><a href="#" class="button fit">Login</a></li>
+        </ul>
+        @Html.Partial("_LoginPartial")
+
+
+    </nav>
+    @RenderBody()
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="inner">
+            <h2>Get In Touch</h2>
+            <ul class="actions">
+                <li><span class="icon fa-phone"></span> <a href="#">(518) 879-6827</a></li>
+                <li><span class="icon fa-envelope"></span> <a href="#">Christian.Downs.15@gmail.com</a></li>
+                <li><span class="icon fa-map-marker"></span> Troy, IL 62294</li>
+            </ul>
+        </div>
+        <div class="copyright">
+            &copy; Untitled. Design <a href="https://templated.co">TEMPLATED</a>. Images <a href="https://unsplash.com">Unsplash</a>.
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jquery.scrolly.min.js"></script>
+    <script src="~/Scripts/skel.min.js"></script>
+    <script src="~/Scripts/util.js"></script>
+    <script src="~/Scripts/main.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
