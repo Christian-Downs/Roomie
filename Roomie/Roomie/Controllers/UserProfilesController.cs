@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Roomie.Models;
 
 namespace Roomie.Controllers
@@ -14,10 +15,35 @@ namespace Roomie.Controllers
     {
         private RoomieEntities db = new RoomieEntities();
 
+        [Authorize]
+        [HttpPost]
+        public ActionResult Like(string id)
+        {
+            var userId = User.Identity.GetUserId();
+            var logedinProfile = db.UserProfiles.Find(userId);
+
+
+
+
+            var profileLinker = new ProfileLinker
+            {
+                Liked = true,
+                LinkedProfile = userId,
+                UserLinkedId = id
+            };
+
+
+
+            db.ProfileLinkers.Add(profileLinker);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         // GET: UserProfiles
         public ActionResult Index()
         {
-            var userProfiles = db.UserProfiles;
+            var userId = User.Identity.GetUserId();
+            var userProfiles = db.UserProfiles.Where(u=>u.Id!=userId);
             return View(userProfiles.ToList());
         }
 

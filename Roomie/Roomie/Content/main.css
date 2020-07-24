@@ -10,6 +10,8 @@
 
 /* Reset */
 
+
+
 	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
 		margin: 0;
 		padding: 0;
@@ -3210,6 +3212,9 @@
 
 		}
 
+
+        /*My changes started here*/
+
 input[type="checkbox"] {
 	appearance: checkbox !important;
 	opacity: 1;
@@ -3231,4 +3236,77 @@ input[type="checkbox"] {
 
 label.control-label.col-md-2 {
 	display: inline;
+}
+
+.Profile-Card {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    box-shadow: 3px 4px 3px gray;
+    border: 1px solid black;
+    border-radius: 0%;
+    padding: 1em;
+}
+
+.subpage > div {
+}
+
+.Image-Info {
+    display: flex;
+    flex-direction: row;
+}
+
+.Profile-Image img {
+    width: 6em;
+    height: 6em;
+    object-fit: contain;
+    border: 1px solid gray;
+    border-radius: 50%;
+}
+
+.Profile-Image {
+    background-color: grey;
+    padding: .2em;
+    margin: 1em 2em 2em 1em;
+}
+
+.Profile-Info {
+    font-size: 200%;
+}
+
+.Profile-Name {
+    font-weight: bold;
+    color: crimson;
+}
+
+.Profile-Info * {
+    margin: .5em 0em;
+}
+
+.Profile-Property.Has-PropertyTrue {
+    color: blue;
+    font-weight: bolder;
+}
+.Profile-Property.Has-PropertyFalse {
+    color: red;
+    font-weight: bolder;
+}
+
+.Profile-Description {
+    width: 100%;
+    height: 15em;
+    border: 1px solid black;
+    background-color: ghostwhite;
+    padding: .5em;
+}
+
+div {
+}
+
+.profile-controls {
+    display: flex;
+    flex-direction: row;
+    padding: .2em;
 }
