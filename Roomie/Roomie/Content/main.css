@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 @import url(font-awesome.min.css);
 @import "https://fonts.googleapis.com/css?family=Montserrat:700|Open+Sans:300,400|Pacifico";
 
@@ -3209,3 +3209,26 @@
 				}
 
 		}
+
+input[type="checkbox"] {
+	appearance: checkbox !important;
+	opacity: 1;
+	/* z-index: 5; */
+	-webkit-appearance: initial;
+	/* height: 1em; */
+	float:none;
+	display:inline;	
+	display: inline;
+	vertical-align: bottom;
+}
+
+	input[type="checkbox"] + label:before, input[type="radio"] + label:before {
+		border: none;
+		background: none;
+		content: none;
+
+	}
+
+label.control-label.col-md-2 {
+	display: inline;
+}

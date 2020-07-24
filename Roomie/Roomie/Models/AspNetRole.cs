@@ -12,25 +12,18 @@ namespace Roomie.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ProfileLinker
+    public partial class AspNetRole
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProfileLinker()
+        public AspNetRole()
         {
-            this.MessageBoards = new HashSet<MessageBoard>();
+            this.AspNetUsers = new HashSet<AspNetUser>();
         }
     
-        public int ID { get; set; }
-        public Nullable<bool> Liked { get; set; }
-        public Nullable<bool> Favorited { get; set; }
-        public Nullable<int> AppartmentsID { get; set; }
-        public string UserLinkedId { get; set; }
-        public string LinkedProfile { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MessageBoard> MessageBoards { get; set; }
-        public virtual Appartment Appartment { get; set; }
-        public virtual UserProfile UserProfile { get; set; }
-        public virtual UserProfile UserProfile1 { get; set; }
+        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
     }
 }

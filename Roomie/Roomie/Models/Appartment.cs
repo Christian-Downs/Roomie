@@ -23,11 +23,9 @@ namespace Roomie.Models
         public int ID { get; set; }
         public decimal RentCost { get; set; }
         public string Description { get; set; }
-        public int ProfileLinkerID { get; set; }
         public Nullable<int> PhotoID { get; set; }
     
         public virtual Photo Photo { get; set; }
-        public virtual ProfileLinker ProfileLinker { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProfileLinker> ProfileLinkers { get; set; }
     }

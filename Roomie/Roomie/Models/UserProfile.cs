@@ -31,7 +31,6 @@ namespace Roomie.Models
         public string Description { get; set; }
         public bool PropertyBool { get; set; }
         public Nullable<int> AddressID { get; set; }
-        public Nullable<int> ProfileLinkerId { get; set; }
         public Nullable<int> PhotoID { get; set; }
     
         public virtual Address Address { get; set; }
@@ -44,7 +43,5 @@ namespace Roomie.Models
         public virtual ICollection<ProfileLinker> ProfileLinkers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProfileLinker> ProfileLinkers1 { get; set; }
-        public virtual ProfileLinker ProfileLinker { get; set; }
-        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

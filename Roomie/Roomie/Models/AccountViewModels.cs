@@ -79,6 +79,21 @@ namespace Roomie.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+        [Required]
+        public string PhoneNumber { get; set; }
+        [Display(Name = "Description")]
+        public string Description { get; set; }
+        [Required]
+        [Display(Name = "Have a house: ")]
+        public bool PropertyBool { get; set; }
+
     }
 
     public class ResetPasswordViewModel

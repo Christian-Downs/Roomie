@@ -35,9 +35,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Photo.ImageLocation)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProfileLinker.UserLinkedId)
-        </th>
         <th></th>
     </tr>
 
@@ -66,9 +63,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Photo.ImageLocation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProfileLinker.UserLinkedId)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

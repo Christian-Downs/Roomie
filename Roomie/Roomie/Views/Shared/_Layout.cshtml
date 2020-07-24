@@ -20,9 +20,6 @@
         </nav>
         <a href="~/Views/Home/Index.cshtml" class="logo">Roomie</a>
         <nav class="right">
-            @Html.ActionLink("Register", "Register", "AccountController", null, new { @class = "button alt" })
-            <a href="~/Views/Account/Register.cshtml" class="button alt">Register</a>
-            <a href="~/Views/Account/Login.cshtml" class="button alt">Log in</a>
             @Html.Partial("_LoginPartial")
         </nav>
     </header>
@@ -37,7 +34,6 @@
         <ul class="actions vertical">
             <li><a href="#" class="button fit">Login</a></li>
         </ul>
-        @Html.Partial("_LoginPartial")
 
 
 

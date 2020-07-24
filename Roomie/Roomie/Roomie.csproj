@@ -184,9 +184,6 @@
     <Compile Include="Models\Appartment.cs">
       <DependentUpon>RoomieModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AspNetUser.cs">
-      <DependentUpon>RoomieModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MessageBoard.cs">

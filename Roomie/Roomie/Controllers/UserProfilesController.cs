@@ -17,7 +17,7 @@ namespace Roomie.Controllers
         // GET: UserProfiles
         public ActionResult Index()
         {
-            var userProfiles = db.UserProfiles.Include(u => u.Address).Include(u => u.Photo).Include(u => u.ProfileLinker);
+            var userProfiles = db.UserProfiles;
             return View(userProfiles.ToList());
         }
 
@@ -61,7 +61,6 @@ namespace Roomie.Controllers
 
             ViewBag.AddressID = new SelectList(db.Addresses, "ID", "City", userProfile.AddressID);
             ViewBag.PhotoID = new SelectList(db.Photos, "ID", "ImageLocation", userProfile.PhotoID);
-            ViewBag.ProfileLinkerId = new SelectList(db.ProfileLinkers, "ID", "UserLinkedId", userProfile.ProfileLinkerId);
             return View(userProfile);
         }
 
@@ -79,7 +78,6 @@ namespace Roomie.Controllers
             }
             ViewBag.AddressID = new SelectList(db.Addresses, "ID", "City", userProfile.AddressID);
             ViewBag.PhotoID = new SelectList(db.Photos, "ID", "ImageLocation", userProfile.PhotoID);
-            ViewBag.ProfileLinkerId = new SelectList(db.ProfileLinkers, "ID", "UserLinkedId", userProfile.ProfileLinkerId);
             return View(userProfile);
         }
 
@@ -98,7 +96,6 @@ namespace Roomie.Controllers
             }
             ViewBag.AddressID = new SelectList(db.Addresses, "ID", "City", userProfile.AddressID);
             ViewBag.PhotoID = new SelectList(db.Photos, "ID", "ImageLocation", userProfile.PhotoID);
-            ViewBag.ProfileLinkerId = new SelectList(db.ProfileLinkers, "ID", "UserLinkedId", userProfile.ProfileLinkerId);
             return View(userProfile);
         }
 
