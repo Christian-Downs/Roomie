@@ -16,6 +16,40 @@ namespace Roomie.Controllers
     {
         private RoomieEntities db = new RoomieEntities();
 
+
+
+
+        [HttpGet]
+        public ActionResult Skip(string id)
+        {
+            var loggedInProfile = User.Identity.GetUserId();
+
+            List<UserProfile> userProfilesById = db.UserProfiles.OrderBy(up => up.Id).Select(up=>up).ToList<UserProfile>();
+            //var currentProfile = Convert.ToString(db.UserProfiles.Where(up => up.Id == id || up.ProfileLinkers.Select(pl => pl.Liked).Equals(false)).Select(cp => cp.Id));
+            for(int i =0; i<userProfilesById.Count;i++)
+            {
+                if (id == userProfilesById[i].Id)
+                {
+                    try
+                    {
+                        var redirector = userProfilesById[i + 1].Id;
+
+                        var url = "https://localhost:44322/UserProfiles/Details/" + redirector;
+
+                        return Redirect(url);
+                    }
+                    catch
+                    {
+                        return RedirectToAction("Index");
+                    }
+
+                }
+
+            }
+            return RedirectToAction("Index");
+        }
+
+
         [Authorize]
         [HttpPost]
         public ActionResult Like(string id)
@@ -28,6 +62,7 @@ namespace Roomie.Controllers
 
             var profileLinker = new ProfileLinker
             {
+                ID = db.ProfileLinkers.Count(),
                 Liked = true,
                 Favorited=false,
                 LinkedProfile = userId,

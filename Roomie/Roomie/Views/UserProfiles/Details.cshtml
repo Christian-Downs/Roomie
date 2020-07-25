@@ -38,7 +38,7 @@
         </div>
         <div class="Profile-Buttons-Div">
             <div class="col-md-4 Profile-Buttons">
-                <button class="Skip-Button" onclick="submitLike()">
+                <button class="Skip-Button" onclick="submitSkip()">
                     Skip
                 </button>
             </div>
@@ -48,7 +48,7 @@
                 </button>
             </div>
             <div class="col-md-4 Profile-Buttons">
-                <button class="Like-Button" onclick="">
+                <button class="Like-Button" onclick="submitLike()">
                     Like
                 </button>
             </div>
@@ -125,6 +125,7 @@
         </dl>*@
     @using (Html.BeginForm("Like", "UserProfiles", new { id = Model.Id }, FormMethod.Post, new { id = "form" })) { }
     @using (Html.BeginForm("Favorite", "UserProfiles", new { id = Model.Id }, FormMethod.Post, new { id = "Favorite" })) { }
+    @using (Html.BeginForm("Skip", "UserProfiles", new { id = Model.Id }, FormMethod.Get, new { id = "Skip" })) { }
 
 </div>
 <p>
@@ -140,6 +141,10 @@
         }
         function submitFavorite() {
             $("#Favorite").submit();
+        }
+
+        function submitSkip() {
+            $("#Skip").submit();
         }
     </script>
 
