@@ -18,7 +18,8 @@
         <nav class="left">
             <a href="#menu"><span>Menu</span></a>
         </nav>
-        <a href="~/Views/Home/Index.cshtml" class="logo">Roomie</a>
+        @*<a href="~/Views/Home/Index.cshtml" class="logo">Roomie</a>*@
+        @Html.ActionLink("Roomie", "Index", "Home",null, new {@class="logo"})
         <nav class="right">
             @Html.Partial("_LoginPartial")
         </nav>
@@ -27,9 +28,9 @@
     <!-- Menu -->
     <nav id="menu">
         <ul class="links">
-            <li>@Html.ActionLink("Find People", "Index", "Home")</li>
-            <li>@Html.ActionLink("Find A Place", "Index", "Apartments")</li>
-            <li><a href="elements.html">Elements</a></li>
+            <li>@Html.ActionLink("Find People", "Index", "UserProfiles")</li>
+            <li>@Html.ActionLink("Find A Place", "Index", "Appartments")</li>
+            <li>@Html.ActionLink("Liked People", "LikedPeople", "UserProfiles") </li>
         </ul>
         <ul class="actions vertical">
             <li><a href="#" class="button fit">Login</a></li>
@@ -39,7 +40,9 @@
 
 
     </nav>
-    @RenderBody()
+    <div class="Main-Body-Content">
+        @RenderBody()
+    </div>
     <!-- Footer -->
     <footer id="footer">
         <div class="inner">

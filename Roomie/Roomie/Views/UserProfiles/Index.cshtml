@@ -12,30 +12,27 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            First Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            Last Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmailAddress)
+            Email Address
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PropertyBool)
+            Has a property or not
+        </th>
+        <th class="City-Table-Block">
+            @Html.DisplayNameFor(model => model.City)
+            
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Address.City)
+
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Photo.ImageLocation)
-        </th>
-        <th></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -47,9 +44,6 @@
             @Html.DisplayFor(modelItem => item.LastName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumber)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.EmailAddress)
         </td>
         <td>
@@ -59,15 +53,13 @@
             @Html.DisplayFor(modelItem => item.PropertyBool)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Address.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Photo.ImageLocation)
+            @Html.DisplayFor(modelItem => item.City)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id }) |
+            @Html.ActionLink("Chat", "MessagesForUser","MessageBoards", new { id=item.Id }, null)
         </td>
     </tr>
 }

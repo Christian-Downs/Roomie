@@ -32,6 +32,7 @@ namespace Roomie.Models
         public bool PropertyBool { get; set; }
         public Nullable<int> AddressID { get; set; }
         public Nullable<int> PhotoID { get; set; }
+        public string City { get; set; }
     
         public virtual Address Address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

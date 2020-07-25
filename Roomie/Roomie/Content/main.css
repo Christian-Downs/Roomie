@@ -1930,10 +1930,14 @@
 	select {
 		height: 3.5em;
 		line-height: 3.5em;
+        background-color:lightgray;
+        border:1px solid black;
 	}
 
 	textarea {
 		padding: 0.75em 1em;
+        background-color:lightgray;
+        border:1px solid black;
 	}
 
 	input[type="checkbox"],
@@ -3309,4 +3313,30 @@ div {
     display: flex;
     flex-direction: row;
     padding: .2em;
+}
+.row.Login-Edits {
+	padding: 0em 0em 0em 38%;
+}
+th.City-Table-Block {
+	padding: 0em 7em 0em 0em;
+}
+
+.Appartment-Details {
+	padding: 0em 0em 0em 7%;
+}
+iframe.Map-iframe {
+	width: 90%;
+	height: 30em;
+}
+.Profile-Buttons-Div {
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+	padding: 1em 0em 0em 0em;
+}
+.Profile-Buttons button{
+	cursor:pointer;
+}
+.Main-Body-Content {
+	min-height: calc(100vh - 380.7px);
 }

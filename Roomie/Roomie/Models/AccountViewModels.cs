@@ -94,6 +94,10 @@ namespace Roomie.Models
         [Display(Name = "Have a house: ")]
         public bool PropertyBool { get; set; }
 
+        [Required]
+        [Display(Name ="City")]
+        public string City { get; set; }
+
     }
 
     public class ResetPasswordViewModel

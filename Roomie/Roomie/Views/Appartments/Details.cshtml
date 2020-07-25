@@ -1,0 +1,78 @@
+﻿@model Roomie.Models.Appartment
+
+@{
+    ViewBag.Title = "Details";
+    var key = System.Configuration.ConfigurationManager.AppSettings["mapskey"];
+    var mapurlBase = "https://www.google.com/maps/embed/v1/place";
+    var q = HttpUtility.UrlEncode(Model.Street + "," + Model.City);
+    var mapurl = $"{mapurlBase}?key={key}&q={q}&maptype=satellite";
+}
+
+
+
+
+    <div class="Appartment-Details">
+        <h4>Appartment</h4>
+        <hr />
+        <iframe @*width="600"
+                height="450"
+                *@frameborder="0" style="border:0"
+                src="@mapurl" allowfullscreen
+                class="Map-iframe">
+        </iframe>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.RentCost)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.RentCost)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Street)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Street)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.City)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.City)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Country)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Country)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Photo.ImageLocation)
+            </dt>
+
+            <dd>
+
+            </dd>
+        </dl>
+
+
+    </div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

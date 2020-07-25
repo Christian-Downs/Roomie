@@ -30,7 +30,7 @@ namespace Roomie.Models
         public virtual DbSet<Photo> Photos { get; set; }
         public virtual DbSet<ProfileLinker> ProfileLinkers { get; set; }
         public virtual DbSet<SingleMessage> SingleMessages { get; set; }
-        public virtual DbSet<Appartment> Appartments { get; set; }
         public virtual DbSet<UserProfile> UserProfiles { get; set; }
+        public virtual DbSet<Appartment> Appartments { get; set; }
     }
 }

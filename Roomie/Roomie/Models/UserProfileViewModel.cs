@@ -14,6 +14,7 @@ namespace Roomie.Models
         public string PhoneNumber { get; set; }
         public string Description { get; set; }
         public bool PropertyBool { get; set; }
+        public string City { get; set; }
         public Nullable<int> AddressID { get; set; }
         public Nullable<int> PhotoID { get; set; }
 

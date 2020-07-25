@@ -170,8 +170,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AppartmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MessageBoardsController.cs" />
     <Compile Include="Controllers\SwippingController.cs" />
     <Compile Include="Controllers\UserProfileExperiementationController.cs" />
     <Compile Include="Controllers\UserProfilesController.cs" />
@@ -185,6 +187,7 @@
     <Compile Include="Models\Appartment.cs">
       <DependentUpon>RoomieModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AppartmentViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MessageBoard.cs">
@@ -338,6 +341,14 @@
     <Content Include="Views\UserProfiles\Index.cshtml" />
     <Content Include="Views\UserProfileExperiementation\Index.cshtml" />
     <Content Include="Views\UserProfileExperiementation\View.cshtml" />
+    <Content Include="Views\Appartments\Create.cshtml" />
+    <Content Include="Views\Appartments\Delete.cshtml" />
+    <Content Include="Views\Appartments\Details.cshtml" />
+    <Content Include="Views\Appartments\Edit.cshtml" />
+    <Content Include="Views\Appartments\Index.cshtml" />
+    <Content Include="Views\UserProfiles\LikedPeople.cshtml" />
+    <Content Include="Views\MessageBoards\Index.cshtml" />
+    <Content Include="Views\MessageBoards\MessagesForUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

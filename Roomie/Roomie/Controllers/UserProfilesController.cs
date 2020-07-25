@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
 using Roomie.Models;
 
@@ -28,6 +29,7 @@ namespace Roomie.Controllers
             var profileLinker = new ProfileLinker
             {
                 Liked = true,
+                Favorited=false,
                 LinkedProfile = userId,
                 UserLinkedId = id
             };
@@ -38,6 +40,42 @@ namespace Roomie.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Favorite(string id)
+        {
+            var userId = User.Identity.GetUserId();
+            var logedinProfile = db.UserProfiles.Find(userId);
+
+
+
+
+            var profileLinker = new ProfileLinker
+            {
+                Liked = true,
+                Favorited = true,
+                LinkedProfile = userId,
+                UserLinkedId = id
+            };
+
+
+
+            db.ProfileLinkers.Add(profileLinker);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        public ActionResult LikedPeople()
+        {
+            var userId = User.Identity.GetUserId();
+            var profileList = db.ProfileLinkers.Where(linker => linker.LinkedProfile==userId).OrderBy(linker=>linker.Favorited).Select(linker=>linker.UserProfile1);
+
+            return View(profileList.ToList());
+        }
+            
+        
 
         // GET: UserProfiles
         public ActionResult Index()
@@ -112,7 +150,7 @@ namespace Roomie.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,PhoneNumber,EmailAddress,Description,PropertyBool,AddressID,ProfileLinkerId,PhotoID")] UserProfile userProfile)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,PhoneNumber,EmailAddress,Description,PropertyBool,AddressID,ProfileLinkerId,PhotoID,City")] UserProfile userProfile)
         {
             if (ModelState.IsValid)
             {

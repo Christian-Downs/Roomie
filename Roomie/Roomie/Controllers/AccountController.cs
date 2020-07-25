@@ -167,7 +167,8 @@ namespace Roomie.Controllers
                         LastName = model.LastName,
                         PropertyBool = model.PropertyBool,
                         PhoneNumber = model.PhoneNumber,
-                        Id = user.Id
+                        Id = user.Id,
+                        City=model.City
                     };
 
                     using (var db = new RoomieEntities())
