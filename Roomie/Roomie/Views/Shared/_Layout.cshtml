@@ -19,27 +19,30 @@
             <a href="#menu"><span>Menu</span></a>
         </nav>
         @*<a href="~/Views/Home/Index.cshtml" class="logo">Roomie</a>*@
-        @Html.ActionLink("Roomie", "Index", "Home",null, new {@class="logo"})
+        @Html.ActionLink("Roomie", "Index", "Home", null, new { @class = "logo" })
         <nav class="right">
             @Html.Partial("_LoginPartial")
         </nav>
     </header>
 
-    <!-- Menu -->
-    <nav id="menu">
-        <ul class="links">
-            <li>@Html.ActionLink("Find People", "Index", "UserProfiles")</li>
-            <li>@Html.ActionLink("Find A Place", "Index", "Appartments")</li>
-            <li>@Html.ActionLink("Liked People", "LikedPeople", "UserProfiles") </li>
-        </ul>
-        <ul class="actions vertical">
-            <li><a href="#" class="button fit">Login</a></li>
-        </ul>
+
+    <!-- Menu -->    
+    <div>
+        <nav id="menu">
+            <ul class="links">
+                <li>@Html.ActionLink("Find People", "Index", "UserProfiles")</li>
+                <li>@Html.ActionLink("Find A Place", "Index", "Appartments")</li>
+                <li>@Html.ActionLink("Liked People", "LikedPeople", "UserProfiles") </li>
+            </ul>
+            <ul class="actions vertical">
+                <li><a href="#" class="button fit">Login</a></li>
+            </ul>
 
 
 
 
-    </nav>
+        </nav>
+    </div>
     <div class="Main-Body-Content">
         @RenderBody()
     </div>
@@ -54,7 +57,7 @@
             </ul>
         </div>
         <div class="copyright">
-            &copy; Untitled. Design <a href="https://templated.co">TEMPLATED</a>. Images <a href="https://unsplash.com">Unsplash</a>.
+            &copy; Roomie. Design <a href="https://templated.co">TEMPLATED</a>. Images <a href="https://unsplash.com">Unsplash</a>.
         </div>
     </footer>
 

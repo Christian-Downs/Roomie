@@ -11,6 +11,7 @@ using Roomie.Models;
 
 namespace Roomie.Controllers
 {
+    [Authorize]
     public class AppartmentsController : Controller
     {
         private RoomieEntities db = new RoomieEntities();

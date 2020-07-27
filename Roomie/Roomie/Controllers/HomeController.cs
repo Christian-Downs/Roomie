@@ -11,12 +11,20 @@ namespace Roomie.Controllers
     public class HomeController : Controller 
     {
         private RoomieEntities db = new RoomieEntities();
+
         [Authorize]
         public ActionResult Index()
         {
+            
             var userId = User.Identity.GetUserId();
-            var userProfiles = db.UserProfiles.Where(u => u.Id != userId);
+            var userProfiles = db.UserProfiles.Where(u => u.Id != userId/* && db.ProfileLinkers.Where(pl=>pl.UserLinkedId == u.Id || pl.LinkedProfile==u.Id)==user*/);
             return View(userProfiles.ToList());
+        }
+
+        [Authorize]
+        public ActionResult CardRender()
+        {
+            return PartialView("~Views/UserProfiles/Details.cshtml");
         }
         [Authorize]
         public ActionResult About()

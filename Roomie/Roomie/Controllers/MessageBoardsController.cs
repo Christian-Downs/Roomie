@@ -13,6 +13,7 @@ using Microsoft.AspNet.Identity;
 
 namespace Roomie.Controllers
 {
+    [Authorize]
     public class MessageBoardsController : Controller
     {
         private RoomieEntities db = new RoomieEntities();

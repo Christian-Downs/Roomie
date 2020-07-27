@@ -19,10 +19,10 @@
         <AssociationConnector Association="RoomieModel.FK__UserProfi__Photo__412EB0B6" />
         <AssociationConnector Association="RoomieModel.FK__ProfileLi__Linke__4BAC3F29" />
         <AssociationConnector Association="RoomieModel.FK__ProfileLi__UserL__4AB81AF0" />
-        <EntityTypeShape EntityType="RoomieModel.Appartment" Width="1.5" PointX="3" PointY="4.375" />
+        <EntityTypeShape EntityType="RoomieModel.Appartment" Width="1.5" PointX="3" PointY="4.25" />
         <AssociationConnector Association="RoomieModel.FK__Appartmen__Photo__4CA06362" />
         <AssociationConnector Association="RoomieModel.FK__ProfileLi__Appar__3E52440B" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

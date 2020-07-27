@@ -349,6 +349,7 @@
     <Content Include="Views\UserProfiles\LikedPeople.cshtml" />
     <Content Include="Views\MessageBoards\Index.cshtml" />
     <Content Include="Views\MessageBoards\MessagesForUser.cshtml" />
+    <Content Include="Views\Home\CardRender.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -4,7 +4,7 @@
     ViewBag.Title = "Details";
     var key = System.Configuration.ConfigurationManager.AppSettings["mapskey"];
     var mapurlBase = "https://www.google.com/maps/embed/v1/place";
-    var q = HttpUtility.UrlEncode(Model.Street + "," + Model.City);
+    var q = HttpUtility.UrlEncode(Model.Street + "," + Model.City + "," + Model.ZipCode);
     var mapurl = $"{mapurlBase}?key={key}&q={q}&maptype=satellite";
 }
 
@@ -61,18 +61,15 @@
                 @Html.DisplayFor(model => model.Country)
             </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Photo.ImageLocation)
-            </dt>
-
             <dd>
 
             </dd>
         </dl>
-
 
     </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+

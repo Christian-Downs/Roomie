@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Roomie.Controllers
 {
+    [Authorize]
     public class SwippingController : Controller
     {
         // GET: Swipping
