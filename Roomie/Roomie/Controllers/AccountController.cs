@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity.Migrations.Sql;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -177,6 +178,10 @@ namespace Roomie.Controllers
                         {
                             db.UserProfiles.Add(userProfile);
                             db.SaveChanges();
+                            var subject = "Thank you for Registering";
+                            var body = "Thank you, " + model.FirstName +", so much for registering good luck finding a roommate with Roomie!";
+                            MessageSender.SendEmail(model.Email, subject , body, MessageSender.BodyType.Text);
+                            
                         }
                         catch (Exception e)
                         {

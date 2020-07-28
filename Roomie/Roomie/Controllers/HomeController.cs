@@ -14,10 +14,9 @@ namespace Roomie.Controllers
 
         [Authorize]
         public ActionResult Index()
-        {
-            
+        {            
             var userId = User.Identity.GetUserId();
-            var userProfiles = db.UserProfiles.Where(u => u.Id != userId/* && db.ProfileLinkers.Where(pl=>pl.UserLinkedId == u.Id || pl.LinkedProfile==u.Id)==user*/);
+            var userProfiles = db.ProfileLinkers.Where(linker => linker.LinkedProfile != userId).OrderBy(linker => linker.Favorited).Select(linker => linker.UserProfile1);
             return View(userProfiles.ToList());
         }
 

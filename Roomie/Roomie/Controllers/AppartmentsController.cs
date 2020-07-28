@@ -50,10 +50,11 @@ namespace Roomie.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,RentCost,Description,PhotoID,Street,City,Country")] Appartment appartment)
+        public async Task<ActionResult> Create([Bind(Include = "RentCost,Description,PhotoID,Street,City,Country,ZipCode,State")] Appartment appartment)
         {
             if (ModelState.IsValid)
             {
+                appartment.ID = db.Appartments.Count();
                 db.Appartments.Add(appartment);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

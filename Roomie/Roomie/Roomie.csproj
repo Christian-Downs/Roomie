@@ -180,6 +180,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="MessageSender.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Address.cs">
       <DependentUpon>RoomieModel.tt</DependentUpon>
@@ -240,6 +241,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\1Appartment.jpg" />
+    <Content Include="images\2Appartment.jpg" />
+    <Content Include="images\3Appartment.jpg" />
+    <Content Include="images\4Appartment.jpg" />
+    <Content Include="images\5Appartment.jpg" />
     <Content Include="images\banner.jpg" />
     <Content Include="images\pic01.jpg" />
     <Content Include="images\pic02.jpg" />
