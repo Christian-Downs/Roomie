@@ -3340,3 +3340,54 @@ iframe.Map-iframe {
 .Main-Body-Content {
 	min-height: calc(100vh - 380.7px);
 }
+.Liked-People-Class {
+	text-align: center;
+}
+.User-Index-Header {
+	text-align: center;
+}
+tr.Message-Text-Sent {
+	background-color: lightblue;
+}
+
+tr.Message-Text-Recieved {
+	background-color: pink;
+}
+
+td.Message-Name-Space {
+	width: 13em;
+}
+
+td.Message-Time-Space {
+	width: 11em;
+}
+
+td.Message-Text-Space {
+	border: 1px solid black;
+}
+.col-md-10.Text-Area-For-Messages {
+	width: 50%;
+}
+
+.col-md-offset-2.col-md-10.Message-Chat-Send-Button {
+	padding: 1em 0em 0em 1em;
+}
+td.Message-Name-Space.message-name-recived {
+	background-color: pink;
+}
+
+td.Message-Time-Space.message-Time-recived {
+	background-color: pink;
+}
+
+td.Message-Text-Space.message-Text-recived {
+	width: 49%;
+	background-color: pink;
+}
+
+td.Message-Name-Space.message-text-sent {
+}
+
+td.Message-Name-Space.message-name-recived {
+	text-align: right;
+}

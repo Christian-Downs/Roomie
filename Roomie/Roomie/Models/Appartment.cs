@@ -18,6 +18,7 @@ namespace Roomie.Models
         public Appartment()
         {
             this.ProfileLinkers = new HashSet<ProfileLinker>();
+            this.AppartmentOwners = new HashSet<AppartmentOwner>();
         }
     
         public int ID { get; set; }
@@ -33,5 +34,7 @@ namespace Roomie.Models
         public virtual Photo Photo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProfileLinker> ProfileLinkers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AppartmentOwner> AppartmentOwners { get; set; }
     }
 }

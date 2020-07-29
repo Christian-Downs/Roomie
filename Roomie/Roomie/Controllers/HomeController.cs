@@ -14,10 +14,11 @@ namespace Roomie.Controllers
 
         [Authorize]
         public ActionResult Index()
-        {            
-            var userId = User.Identity.GetUserId();
-            var userProfiles = db.ProfileLinkers.Where(linker => linker.LinkedProfile != userId).OrderBy(linker => linker.Favorited).Select(linker => linker.UserProfile1);
-            return View(userProfiles.ToList());
+        {
+            var RedirectUrl = UserProfile.NextProfile(User.Identity.GetUserId(), db, HttpContext);
+            return Redirect(RedirectUrl);
+            //var userProfiles = db.ProfileLinkers.Where(linker => linker.LinkedProfile != userId).OrderBy(linker => linker.Favorited).Select(linker => linker.UserProfile1);
+            //return View(userProfiles.ToList());
         }
 
         [Authorize]

@@ -16,6 +16,13 @@ namespace Roomie.Controllers
     {
         private RoomieEntities db = new RoomieEntities();
 
+
+        public async Task<ActionResult> BookAppointment(int id)
+        {
+            Appartment appartment = await db.Appartments.FindAsync(id);
+            return View(appartment);
+        }
+
         // GET: Appartments
         public async Task<ActionResult> Index()
         {

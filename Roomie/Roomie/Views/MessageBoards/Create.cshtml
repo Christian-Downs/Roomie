@@ -1,0 +1,24 @@
+﻿@model Roomie.Models.MessageCreateViewModel
+
+@using (Html.BeginForm("Create","MessageBoards", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.RecieverID)
+    @Html.HiddenFor(model=>model.LinkerId)
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.MessageText, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10 Text-Area-For-Messages">
+                @Html.TextAreaFor(model => model.MessageText, new { @class = "form-control" } )
+                @Html.ValidationMessageFor(model => model.MessageText, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10 Message-Chat-Send-Button">
+                <input type="submit" value="Send" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

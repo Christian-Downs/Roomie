@@ -157,38 +157,8 @@ namespace Roomie.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-
-
-                    var userProfile = new UserProfile
-                    {
-                        EmailAddress = model.Email,
-                        Description = model.Description,
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
-                        PropertyBool = model.PropertyBool,
-                        PhoneNumber = model.PhoneNumber,
-                        Id = user.Id,
-                        City=model.City
-                    };
-
-                    using (var db = new RoomieEntities())
-                    {
-                        try
-                        {
-                            db.UserProfiles.Add(userProfile);
-                            db.SaveChanges();
-                            var subject = "Thank you for Registering";
-                            var body = "Thank you, " + model.FirstName +", so much for registering good luck finding a roommate with Roomie!";
-                            MessageSender.SendEmail(model.Email, subject , body, MessageSender.BodyType.Text);
-                            
-                        }
-                        catch (Exception e)
-                        {
-                            e = e;
-                            
-                        }
-                    }
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    CreateUserProfile(model, user);
 
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -205,6 +175,39 @@ namespace Roomie.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        private static void CreateUserProfile(RegisterViewModel model, ApplicationUser user)
+        {
+            var userProfile = new UserProfile
+            {
+                EmailAddress = model.Email,
+                Description = model.Description,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                PropertyBool = model.PropertyBool,
+                PhoneNumber = model.PhoneNumber,
+                Id = user.Id,
+                City = model.City
+            };
+
+            using (var db = new RoomieEntities())
+            {
+                try
+                {
+                    db.UserProfiles.Add(userProfile);
+                    db.SaveChanges();
+                    var subject = "Thank you for Registering";
+                    var body = "Thank you, " + model.FirstName + ", so much for registering good luck finding a roommate with Roomie!";
+                    MessageSender.SendEmail(model.Email, subject, body, MessageSender.BodyType.Text);
+
+                }
+                catch (Exception e)
+                {
+                    e = e;
+
+                }
+            }
         }
 
         //

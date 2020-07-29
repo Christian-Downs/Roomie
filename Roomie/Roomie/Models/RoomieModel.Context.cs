@@ -32,5 +32,7 @@ namespace Roomie.Models
         public virtual DbSet<SingleMessage> SingleMessages { get; set; }
         public virtual DbSet<UserProfile> UserProfiles { get; set; }
         public virtual DbSet<Appartment> Appartments { get; set; }
+        public virtual DbSet<AppartmentOwner> AppartmentOwners { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
     }
 }

@@ -17,7 +17,13 @@ namespace Roomie.Controllers
     public class MessageBoardsController : Controller
     {
         private RoomieEntities db = new RoomieEntities();
-
+        public async Task<ActionResult> MessagesForUser(string id)
+        {
+            var userId = User.Identity.GetUserId();
+            var messageBoards = db.MessageBoards.Where(mb => (mb.SenderID == id && mb.RecieverID==userId)|| (mb.RecieverID == id && mb.SenderID==userId)).OrderBy(m => m.SingleMessage.TimeOfMessage);
+            ViewBag.recieverID = id;
+            return View(await messageBoards.ToListAsync());
+        }
         // GET: MessageBoards
         public async Task<ActionResult> Index()
         {
@@ -26,12 +32,7 @@ namespace Roomie.Controllers
             return View(await messageBoards.ToListAsync());
         }
 
-        public async Task<ActionResult> MessagesForUser(string id)
-        {
-            var userId = User.Identity.GetUserId();
-            var messageBoards = db.MessageBoards.Where(mb => (mb.SenderID == id && mb.RecieverID==userId)|| (mb.RecieverID == id && mb.SenderID==userId)).OrderBy(m => m.SingleMessage.TimeOfMessage);
-            return View(await messageBoards.ToListAsync());
-        }
+
 
         // GET: MessageBoards/Details/5
         public async Task<ActionResult> Details(string id)
@@ -49,13 +50,19 @@ namespace Roomie.Controllers
         }
 
         // GET: MessageBoards/Create
-        public ActionResult Create()
+        public ActionResult Create(string id)
         {
-            ViewBag.MessageID = new SelectList(db.SingleMessages, "id", "MessageText");
-            ViewBag.ProfileLinkerID = new SelectList(db.ProfileLinkers, "ID", "UserLinkedId");
-            ViewBag.RecieverID = new SelectList(db.UserProfiles, "Id", "FirstName");
-            ViewBag.SenderID = new SelectList(db.UserProfiles, "Id", "FirstName");
-            return View();
+            
+            
+            var userId = User.Identity.GetUserId();
+            var linker = db.ProfileLinkers.First(pl => (pl.LinkedProfile == userId && pl.UserLinkedId == id) || (pl.LinkedProfile == id && pl.UserLinkedId == userId));
+            var message = new MessageCreateViewModel()
+            {
+                
+                RecieverID=id,
+                LinkerId=linker.ID
+            };
+            return PartialView(message);
         }
 
         // POST: MessageBoards/Create
@@ -63,20 +70,21 @@ namespace Roomie.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "SenderID,RecieverID,ProfileLinkerID,MessageID")] MessageBoard messageBoard)
+        public async Task<ActionResult> Create(MessageCreateViewModel messageVM)
         {
+            
+
             if (ModelState.IsValid)
             {
+                var message = new SingleMessage { id=db.SingleMessages.Count(),MessageText = messageVM.MessageText, TimeOfMessage = DateTime.Now };
+
+                var userId = User.Identity.GetUserId();
+                var messageBoard = new MessageBoard { MessageID=db.MessageBoards.Count(),SingleMessage = message, RecieverID = messageVM.RecieverID,SenderID=userId,ProfileLinkerID=messageVM.LinkerId };
                 db.MessageBoards.Add(messageBoard);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("MessagesForUser","MessageBoards",new { id=messageVM.RecieverID});
             }
-
-            ViewBag.MessageID = new SelectList(db.SingleMessages, "id", "MessageText", messageBoard.MessageID);
-            ViewBag.ProfileLinkerID = new SelectList(db.ProfileLinkers, "ID", "UserLinkedId", messageBoard.ProfileLinkerID);
-            ViewBag.RecieverID = new SelectList(db.UserProfiles, "Id", "FirstName", messageBoard.RecieverID);
-            ViewBag.SenderID = new SelectList(db.UserProfiles, "Id", "FirstName", messageBoard.SenderID);
-            return View(messageBoard);
+            return View();
         }
 
         // GET: MessageBoards/Edit/5

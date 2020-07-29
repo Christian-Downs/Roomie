@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Roomie.Models;
 
@@ -22,31 +23,33 @@ namespace Roomie.Controllers
         [HttpGet]
         public ActionResult Skip(string id)
         {
-            var loggedInProfile = User.Identity.GetUserId();
+            var RedirectUrl=UserProfile.NextProfile(id,db,HttpContext);
+            return Redirect(RedirectUrl);
+            //var loggedInProfile = User.Identity.GetUserId();
+            
+            //List<UserProfile> userProfilesById = db.UserProfiles.OrderBy(up => up.Id).Select(up=>up).ToList<UserProfile>();
+            ////var currentProfile = Convert.ToString(db.UserProfiles.Where(up => up.Id == id || up.ProfileLinkers.Select(pl => pl.Liked).Equals(false)).Select(cp => cp.Id));
+            //for(int i =0; i<userProfilesById.Count;i++)
+            //{
+            //    if (id == userProfilesById[i].Id)
+            //    {
+            //        try
+            //        {
+            //            var redirector = userProfilesById[i + 1].Id;
 
-            List<UserProfile> userProfilesById = db.UserProfiles.OrderBy(up => up.Id).Select(up=>up).ToList<UserProfile>();
-            //var currentProfile = Convert.ToString(db.UserProfiles.Where(up => up.Id == id || up.ProfileLinkers.Select(pl => pl.Liked).Equals(false)).Select(cp => cp.Id));
-            for(int i =0; i<userProfilesById.Count;i++)
-            {
-                if (id == userProfilesById[i].Id)
-                {
-                    try
-                    {
-                        var redirector = userProfilesById[i + 1].Id;
+            //            var url = "https://localhost:44322/UserProfiles/Details/" + redirector;
 
-                        var url = "https://localhost:44322/UserProfiles/Details/" + redirector;
+            //            return Redirect(url);
+            //        }
+            //        catch
+            //        {
+            //            return RedirectToAction("Index");
+            //        }
 
-                        return Redirect(url);
-                    }
-                    catch
-                    {
-                        return RedirectToAction("Index");
-                    }
+            //    }
 
-                }
-
-            }
-            return RedirectToAction("Index");
+            //}
+            //return RedirectToAction("Index");
         }
 
 
@@ -74,31 +77,8 @@ namespace Roomie.Controllers
             db.ProfileLinkers.Add(profileLinker);
             db.SaveChanges();
 
-            var loggedInProfile = User.Identity.GetUserId();
-
-            List<UserProfile> userProfilesById = db.UserProfiles.OrderBy(up => up.Id).Select(up => up).ToList<UserProfile>();
-            //var currentProfile = Convert.ToString(db.UserProfiles.Where(up => up.Id == id || up.ProfileLinkers.Select(pl => pl.Liked).Equals(false)).Select(cp => cp.Id));
-            for (int i = 0; i < userProfilesById.Count; i++)
-            {
-                if (id == userProfilesById[i].Id)
-                {
-                    try
-                    {
-                        var redirector = userProfilesById[i + 1].Id;
-
-                        var url = "https://localhost:44322/UserProfiles/Details/" + redirector;
-
-                        return Redirect(url);
-                    }
-                    catch
-                    {
-                        return RedirectToAction("Index");
-                    }
-
-                }
-
-            }
-            return RedirectToAction("Index");
+            var RedirectUrl = UserProfile.NextProfile(id, db, HttpContext);
+            return Redirect(RedirectUrl);
         }
 
         [Authorize]
@@ -125,31 +105,19 @@ namespace Roomie.Controllers
             db.ProfileLinkers.Add(profileLinker);
             db.SaveChanges();
 
-            var loggedInProfile = User.Identity.GetUserId();
 
-            List<UserProfile> userProfilesById = db.UserProfiles.OrderBy(up => up.Id).Select(up => up).ToList<UserProfile>();
-            //var currentProfile = Convert.ToString(db.UserProfiles.Where(up => up.Id == id || up.ProfileLinkers.Select(pl => pl.Liked).Equals(false)).Select(cp => cp.Id));
-            for (int i = 0; i < userProfilesById.Count; i++)
-            {
-                if (id == userProfilesById[i].Id)
-                {
-                    try
-                    {
-                        var redirector = userProfilesById[i + 1].Id;
+            var linkedUser = db.UserProfiles.Find(id);
+            var relativeUrl = Url.Action("Details", "UserProfiles", new { id = id });
+            var builder = new UriBuilder(Request.Url.AbsoluteUri) { Path = relativeUrl };
+            var absoluteUrl = builder.Uri.ToString();
+            string body = $"<div>Congratulations, {linkedUser.FirstName}</div>" +
+                $"<div> {logedinProfile.FirstName} has favorited you!</div>" +
+                $"<div><a href = \"{absoluteUrl}\">Click here to see their profile!</a></div>";
 
-                        var url = "https://localhost:44322/UserProfiles/Details/" + redirector;
+            MessageSender.SendEmail(linkedUser.EmailAddress, "You've been favorited!", body, MessageSender.BodyType.Html);
 
-                        return Redirect(url);
-                    }
-                    catch
-                    {
-                        return RedirectToAction("Index");
-                    }
-
-                }
-
-            }
-            return RedirectToAction("Index");
+            var RedirectUrl = UserProfile.NextProfile(id, db, HttpContext);
+            return Redirect(RedirectUrl);
         }
 
         [Authorize]
@@ -183,6 +151,13 @@ namespace Roomie.Controllers
             {
                 return HttpNotFound();
             }
+
+            var userId = User.Identity.GetUserId();
+            var linkedUsers = db.ProfileLinkers.Where(pl => pl.LinkedProfile == userId).Select(pl => pl.UserProfile1);
+            var avaliableUsers = db.UserProfiles.Where(up => up.Id != userId)
+                .Except(linkedUsers);
+            var choosenUser = avaliableUsers.OrderBy(up => Guid.NewGuid()).FirstOrDefault();
+
             return View(userProfile);
         }
 
@@ -214,6 +189,8 @@ namespace Roomie.Controllers
             return View(userProfile);
         }
 
+
+        [Authorize]
         // GET: UserProfiles/Edit/5
         public ActionResult Edit(string id)
         {

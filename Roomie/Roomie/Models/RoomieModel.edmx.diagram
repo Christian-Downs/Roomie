@@ -19,9 +19,13 @@
         <AssociationConnector Association="RoomieModel.FK__UserProfi__Photo__412EB0B6" />
         <AssociationConnector Association="RoomieModel.FK__ProfileLi__Linke__4BAC3F29" />
         <AssociationConnector Association="RoomieModel.FK__ProfileLi__UserL__4AB81AF0" />
-        <EntityTypeShape EntityType="RoomieModel.Appartment" Width="1.5" PointX="3" PointY="4.25" />
+        <EntityTypeShape EntityType="RoomieModel.AppartmentOwner" Width="1.5" PointX="9.875" PointY="8" />
+        <EntityTypeShape EntityType="RoomieModel.AspNetUser" Width="1.5" PointX="0.75" PointY="9" />
+        <AssociationConnector Association="RoomieModel.fk_userprofile_aspnetusers" />
+        <EntityTypeShape EntityType="RoomieModel.Appartment" Width="1.5" PointX="3" PointY="4.125" />
+        <AssociationConnector Association="RoomieModel.FK__Appartmen__Appar__73BA3083" />
         <AssociationConnector Association="RoomieModel.FK__Appartmen__Photo__4CA06362" />
-        <AssociationConnector Association="RoomieModel.FK__ProfileLi__Appar__3E52440B" />
+        <AssociationConnector Association="RoomieModel.FK__ProfileLi__Appar__74AE54BC" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

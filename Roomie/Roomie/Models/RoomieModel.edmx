@@ -14,6 +14,17 @@
           <Property Name="Country" Type="nvarchar(max)" />
           <Property Name="Street" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="AppartmentOwner">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="AppartmentID" Type="int" />
+        </EntityType>
         <EntityType Name="Appartments">
           <Key>
             <PropertyRef Name="ID" />
@@ -27,6 +38,23 @@
           <Property Name="Country" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ZipCode" Type="numeric" Precision="18" Scale="0" />
           <Property Name="State" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
         <EntityType Name="MessageBoard">
           <Key>
@@ -79,6 +107,18 @@
           <Property Name="PhotoID" Type="int" />
           <Property Name="City" Type="nvarchar(max)" />
         </EntityType>
+        <Association Name="FK__appartmen__Appar__71D1E811">
+          <End Role="Appartments" Type="Self.Appartments" Multiplicity="0..1" />
+          <End Role="AppartmentOwner" Type="Self.AppartmentOwner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appartments">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AppartmentOwner">
+              <PropertyRef Name="AppartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Appartmen__Photo__4CA06362">
           <End Role="Photo" Type="Self.Photo" Multiplicity="0..1" />
           <End Role="Appartments" Type="Self.Appartments" Multiplicity="*" />
@@ -199,14 +239,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_userprofile_aspnetusers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="RoomieModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AppartmentOwner" EntityType="Self.AppartmentOwner" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Appartments" EntityType="Self.Appartments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MessageBoard" EntityType="Self.MessageBoard" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Photo" EntityType="Self.Photo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProfileLinker" EntityType="Self.ProfileLinker" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SingleMessage" EntityType="Self.SingleMessage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__appartmen__Appar__71D1E811" Association="Self.FK__appartmen__Appar__71D1E811">
+            <End Role="Appartments" EntitySet="Appartments" />
+            <End Role="AppartmentOwner" EntitySet="AppartmentOwner" />
+          </AssociationSet>
           <AssociationSet Name="FK__Appartmen__Photo__4CA06362" Association="Self.FK__Appartmen__Photo__4CA06362">
             <End Role="Photo" EntitySet="Photo" />
             <End Role="Appartments" EntitySet="Appartments" />
@@ -245,6 +303,10 @@
           </AssociationSet>
           <AssociationSet Name="FK__UserProfi__Photo__412EB0B6" Association="Self.FK__UserProfi__Photo__412EB0B6">
             <End Role="Photo" EntitySet="Photo" />
+            <End Role="UserProfile" EntitySet="UserProfile" />
+          </AssociationSet>
+          <AssociationSet Name="fk_userprofile_aspnetusers" Association="Self.fk_userprofile_aspnetusers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="UserProfile" EntitySet="UserProfile" />
           </AssociationSet>
         </EntityContainer>
@@ -381,6 +443,16 @@
             <End Role="Appartment" EntitySet="Appartments" />
             <End Role="ProfileLinker" EntitySet="ProfileLinkers" />
           </AssociationSet>
+          <EntitySet Name="AppartmentOwners" EntityType="RoomieModel.AppartmentOwner" />
+          <AssociationSet Name="FK__appartmen__Appar__71D1E811" Association="RoomieModel.FK__appartmen__Appar__71D1E811">
+            <End Role="Appartment" EntitySet="Appartments" />
+            <End Role="AppartmentOwner" EntitySet="AppartmentOwners" />
+          </AssociationSet>
+          <EntitySet Name="AspNetUsers" EntityType="RoomieModel.AspNetUser" />
+          <AssociationSet Name="fk_userprofile_aspnetusers" Association="RoomieModel.fk_userprofile_aspnetusers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="UserProfile">
           <Key>
@@ -402,6 +474,7 @@
           <NavigationProperty Name="Photo" Relationship="RoomieModel.FK__UserProfi__Photo__412EB0B6" FromRole="UserProfile" ToRole="Photo" />
           <NavigationProperty Name="ProfileLinkers" Relationship="RoomieModel.FK__ProfileLi__Linke__4BAC3F29" FromRole="UserProfile" ToRole="ProfileLinker" />
           <NavigationProperty Name="ProfileLinkers1" Relationship="RoomieModel.FK__ProfileLi__UserL__4AB81AF0" FromRole="UserProfile" ToRole="ProfileLinker" />
+          <NavigationProperty Name="AspNetUser" Relationship="RoomieModel.fk_userprofile_aspnetusers" FromRole="UserProfile" ToRole="AspNetUser" />
         </EntityType>
         <Association Name="FK__UserProfi__Addre__4222D4EF">
           <End Type="RoomieModel.Address" Role="Address" Multiplicity="0..1" />
@@ -490,6 +563,7 @@
           <Property Name="State" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Photo" Relationship="RoomieModel.FK__Appartmen__Photo__4CA06362" FromRole="Appartment" ToRole="Photo" />
           <NavigationProperty Name="ProfileLinkers" Relationship="RoomieModel.FK__ProfileLi__Appar__3E52440B" FromRole="Appartment" ToRole="ProfileLinker" />
+          <NavigationProperty Name="AppartmentOwners" Relationship="RoomieModel.FK__appartmen__Appar__71D1E811" FromRole="Appartment" ToRole="AppartmentOwner" />
         </EntityType>
         <Association Name="FK__Appartmen__Photo__4CA06362">
           <End Type="RoomieModel.Photo" Role="Photo" Multiplicity="0..1" />
@@ -512,6 +586,60 @@
             </Principal>
             <Dependent Role="ProfileLinker">
               <PropertyRef Name="AppartmentsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AppartmentOwner">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="AppartmentID" Type="Int32" />
+          <NavigationProperty Name="Appartment" Relationship="RoomieModel.FK__appartmen__Appar__71D1E811" FromRole="AppartmentOwner" ToRole="Appartment" />
+        </EntityType>
+        <Association Name="FK__appartmen__Appar__71D1E811">
+          <End Type="RoomieModel.Appartment" Role="Appartment" Multiplicity="0..1" />
+          <End Type="RoomieModel.AppartmentOwner" Role="AppartmentOwner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appartment">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AppartmentOwner">
+              <PropertyRef Name="AppartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserProfile" Relationship="RoomieModel.fk_userprofile_aspnetusers" FromRole="AspNetUser" ToRole="UserProfile" />
+        </EntityType>
+        <Association Name="fk_userprofile_aspnetusers">
+          <End Type="RoomieModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="RoomieModel.UserProfile" Role="UserProfile" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -598,6 +726,36 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="RentCost" ColumnName="RentCost" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppartmentOwners">
+            <EntityTypeMapping TypeName="RoomieModel.AppartmentOwner">
+              <MappingFragment StoreEntitySet="AppartmentOwner">
+                <ScalarProperty Name="AppartmentID" ColumnName="AppartmentID" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="RoomieModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

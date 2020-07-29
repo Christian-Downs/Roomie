@@ -1,51 +1,59 @@
-﻿@model IEnumerable<Roomie.Models.MessageBoard>
+﻿@using Microsoft.AspNet.Identity;
+@model IEnumerable<Roomie.Models.MessageBoard>
 
 @{
     ViewBag.Title = "MessagesForUser";
 }
 
-<h2>MessagesForUser</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.SenderID)
+            @*Sender*@
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RecieverID)
+        <th class="Message-Time-Space">
+            @*Time*@
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProfileLinkerID)
+        <th class="Message-Text-Space">
+            @*Content*@
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MessageID)
-        </th>
-        <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.SenderID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RecieverID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProfileLinkerID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SingleMessage.MessageText)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        bool wasSent = (item.SenderID == User.Identity.GetUserId());
+        string sentClass;
+        if (wasSent)
+        {
+            sentClass = "Message-Text-Sent";
+            <tr class="@sentClass">
+                <td class="Message-Text-Space message-name-sent">
+                    @Html.DisplayFor(modelItem => item.SingleMessage.MessageText)
+                </td>
+                <td class="Message-Time-Space message-time-sent">
+                    @Html.DisplayFor(modelItem => item.SingleMessage.TimeOfMessage)
+                </td>
+                <td class="Message-Name-Space message-text-sent">
+                    @Html.DisplayFor(modelItem => item.UserProfile.FirstName)
+                </td>
+            </tr>
+        }
+        else
+        {
+            sentClass = "Message-Text-Recieved";
+            <tr class="@sentClass">
+                <td class="Message-Name-Space message-name-recived">
+                    @Html.DisplayFor(modelItem => item.UserProfile.FirstName)
+                </td>
+                <td class="Message-Time-Space message-Time-recived">
+                    @Html.DisplayFor(modelItem => item.SingleMessage.TimeOfMessage)
+                </td>
+                <td class="Message-Text-Space message-Text-recived">
+                    @Html.DisplayFor(modelItem => item.SingleMessage.MessageText)
+                </td>
+            </tr>
+        }
+
+    }
 
 </table>
+@Html.Action("Create", "MessageBoards", new { id = ViewBag.recieverID })

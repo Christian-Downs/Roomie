@@ -64,6 +64,9 @@ namespace Roomie.Models
 
     public class RegisterViewModel
     {
+        [Display(Name = "Appartment Owner")]
+        public bool appartmentOwener { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

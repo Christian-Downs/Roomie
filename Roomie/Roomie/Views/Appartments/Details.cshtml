@@ -16,69 +16,85 @@
 
 
 
-<div class="Appartment-Details">
-    <h4>Appartment</h4>
-    <hr />
-    <iframe @*width="600"
+    <div class="Appartment-Details">
+        @*<h4>Appartment</h4>
+        <hr />*@
+        <iframe @*width="600"
                 height="450"
                 *@="0" style="border:0"
-            src="@mapurl" allowfullscreen
-            class="Map-iframe">
-    </iframe>
-    <img src="" runat="server"/>
+                src="@mapurl" allowfullscreen
+                class="Map-iframe">
+        </iframe>
+        <img src="" runat="server" />
 
 
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.RentCost)
-        </dt>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.RentCost)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.RentCost)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.RentCost)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Street)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Street)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Street)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Street)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.City)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.City)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.City)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Country)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Country)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Country)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Country)
+            </dd>
+            <dd>
 
-        <dd>
-
-        </dd>
-    </dl>
-
-</div>
+            </dd>
+            <dt>
+                <button onclick="bookAppointment()">
+                    Book Appointment
+                </button>
+            </dt>
+        </dl>
+        @using (Html.BeginForm("BookAppointment", "Appartments", new { id=Model.ID }, FormMethod.Post, new { id = "bookAppointment" })) { }
+    </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |*@
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+@section scripts{
+    <script type="text/javascript">
+
+        function bookAppointment() {
+            alert("Emailed realitor!");
+            //$("#bookAppointment").submit();
+        }
+
+        
+    </script>
+}
 
 
 
