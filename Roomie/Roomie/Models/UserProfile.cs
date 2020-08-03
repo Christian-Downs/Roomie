@@ -39,11 +39,11 @@ namespace Roomie.Models
         public virtual ICollection<MessageBoard> MessageBoards { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MessageBoard> MessageBoards1 { get; set; }
-        public virtual Photo Photo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProfileLinker> ProfileLinkers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProfileLinker> ProfileLinkers1 { get; set; }
         public virtual AspNetUser AspNetUser { get; set; }
+        public virtual Photo Photo { get; set; }
     }
 }

@@ -15,6 +15,10 @@ namespace Roomie.Controllers
         [Authorize]
         public ActionResult Index()
         {
+            if(User.IsInRole("Owner"))
+            {
+                return RedirectToAction("Index", "Manage");
+            }
             var RedirectUrl = UserProfile.NextProfile(User.Identity.GetUserId(), db, HttpContext);
             return Redirect(RedirectUrl);
             //var userProfiles = db.ProfileLinkers.Where(linker => linker.LinkedProfile != userId).OrderBy(linker => linker.Favorited).Select(linker => linker.UserProfile1);

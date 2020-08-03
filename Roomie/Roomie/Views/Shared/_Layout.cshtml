@@ -34,9 +34,12 @@
                 <li>@Html.ActionLink("Find A Place", "Index", "Appartments")</li>
                 <li>@Html.ActionLink("Liked People", "LikedPeople", "UserProfiles") </li>
             </ul>
-            <ul class="actions vertical">
-                <li><a href="#" class="button fit">Login</a></li>
+            @if (!Request.IsAuthenticated)
+            {<ul class="actions vertical">
+                <li>@Html.ActionLink("Login", "Login", "Account",null,new {@class="button fit" })
+                @*<a href="#" class="button fit">Login</a>*@</li>
             </ul>
+            }
 
 
 

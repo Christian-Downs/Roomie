@@ -174,6 +174,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MessageBoardsController.cs" />
+    <Compile Include="Controllers\PhotosController.cs" />
     <Compile Include="Controllers\SwippingController.cs" />
     <Compile Include="Controllers\UserProfileExperiementationController.cs" />
     <Compile Include="Controllers\UserProfilesController.cs" />
@@ -366,9 +367,12 @@
     <Content Include="Views\Home\CardRender.cshtml" />
     <Content Include="Views\Appartments\BookAppointment.cshtml" />
     <Content Include="Views\MessageBoards\Create.cshtml" />
+    <Content Include="Views\Photos\Details.cshtml" />
+    <Content Include="Views\Appartments\MyAppartments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="UploadedImages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

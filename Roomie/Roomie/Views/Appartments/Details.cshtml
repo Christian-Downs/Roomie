@@ -9,7 +9,7 @@
 
 
     var imagePath = "";
-    imagePath = @"~/images/" + Model.ID.ToString() + "Appartment.jpg";
+    imagePath = @"~/images/" + Model.id.ToString() + "Appartment.jpg";
 
 }
 
@@ -25,7 +25,7 @@
                 src="@mapurl" allowfullscreen
                 class="Map-iframe">
         </iframe>
-        <img src="" runat="server" />
+        @Html.Action("Details", "Photos", new { id = Model.PhotoID, cssClass = "Appartment-Photo" })
 
 
         <dl class="dl-horizontal">
@@ -71,13 +71,13 @@
             <dd>
 
             </dd>
-            <dt>
-                <button onclick="bookAppointment()">
+            <dt class="Book-Appointment-Button">
+                <button onclick="bookAppointment()" class="Book-Appointment-Button">
                     Book Appointment
                 </button>
             </dt>
         </dl>
-        @using (Html.BeginForm("BookAppointment", "Appartments", new { id=Model.ID }, FormMethod.Post, new { id = "bookAppointment" })) { }
+        @using (Html.BeginForm("BookAppointment", "Appartments", new { id=Model.id }, FormMethod.Post, new { id = "bookAppointment" })) { }
     </div>
 <p>
     @*@Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |*@

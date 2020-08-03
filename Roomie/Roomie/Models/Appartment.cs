@@ -17,11 +17,10 @@ namespace Roomie.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Appartment()
         {
-            this.ProfileLinkers = new HashSet<ProfileLinker>();
             this.AppartmentOwners = new HashSet<AppartmentOwner>();
+            this.ProfileLinkers = new HashSet<ProfileLinker>();
         }
     
-        public int ID { get; set; }
         public decimal RentCost { get; set; }
         public string Description { get; set; }
         public Nullable<int> PhotoID { get; set; }
@@ -30,11 +29,12 @@ namespace Roomie.Models
         public string Country { get; set; }
         public Nullable<decimal> ZipCode { get; set; }
         public string State { get; set; }
+        public int id { get; set; }
     
-        public virtual Photo Photo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProfileLinker> ProfileLinkers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AppartmentOwner> AppartmentOwners { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProfileLinker> ProfileLinkers { get; set; }
+        public virtual Photo Photo { get; set; }
     }
 }

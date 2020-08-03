@@ -8,6 +8,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Roomie.Models;
+using System.IO;
+using Microsoft.AspNet.Identity;
 
 namespace Roomie.Controllers
 {
@@ -17,6 +19,14 @@ namespace Roomie.Controllers
         private RoomieEntities db = new RoomieEntities();
 
 
+        // GET: Appartments
+        public async Task<ActionResult> MyAppartments()
+        {
+            var userId = User.Identity.GetUserId();
+            var appartmentOwner = db.AppartmentOwners.Find(userId);
+            var appartments = appartmentOwner.Appartment;
+            return View(appartments);
+        }
         public async Task<ActionResult> BookAppointment(int id)
         {
             Appartment appartment = await db.Appartments.FindAsync(id);
@@ -45,6 +55,7 @@ namespace Roomie.Controllers
             return View(appartment);
         }
 
+        [Authorize(Roles ="Owner")]
         // GET: Appartments/Create
         public ActionResult Create()
         {
@@ -57,12 +68,41 @@ namespace Roomie.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "RentCost,Description,PhotoID,Street,City,Country,ZipCode,State")] Appartment appartment)
+        public async Task<ActionResult> Create([Bind(Include = "RentCost,Description,PhotoID,Street,City,Country,ZipCode,State")] Appartment appartment, HttpPostedFileBase photoInput)
         {
-            if (ModelState.IsValid)
+            bool isValid = ModelState.IsValid;
+            if(isValid && photoInput!=null && photoInput.ContentLength>0 )
             {
-                appartment.ID = db.Appartments.Count();
-                db.Appartments.Add(appartment);
+                if(!photoInput.ContentType.StartsWith("image/"))
+                {
+                    isValid = false;
+                    ModelState.AddModelError("PhotoID", "Photo much be an image");
+                }
+                
+            }
+
+            if (isValid)
+            {
+
+                if (photoInput != null && photoInput.ContentLength > 0)
+                {
+                    var imageFolder = Server.MapPath("/UploadedImages");
+                    var imageFileName = DateTime.Now.ToString("yyyy-MM-dd_HHmmss_fff") + "_" + photoInput.FileName;
+                    var imagePath = Path.Combine(imageFolder, imageFileName);
+
+                    photoInput.SaveAs(imagePath);
+                    var photo = new Photo()
+                    {
+                        ImageLocation = imageFileName
+
+                    };
+
+                    appartment.Photo = photo; 
+                }
+                var userId = User.Identity.GetUserId();
+                var appartmentOwner = db.AppartmentOwners.Find(userId);
+                appartmentOwner.Appartment = appartment;
+                db.Entry(appartmentOwner).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -72,19 +112,12 @@ namespace Roomie.Controllers
         }
 
         // GET: Appartments/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Edit()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Appartment appartment = await db.Appartments.FindAsync(id);
-            if (appartment == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.PhotoID = new SelectList(db.Photos, "ID", "ImageLocation", appartment.PhotoID);
-            return View(appartment);
+            var userId = User.Identity.GetUserId();
+            var appartmentOwner = db.AppartmentOwners.Find(userId);
+            var appartments = appartmentOwner.Appartment;
+            return View(appartments);
         }
 
         // POST: Appartments/Edit/5
@@ -92,10 +125,39 @@ namespace Roomie.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,RentCost,Description,PhotoID,Street,City,Country")] Appartment appartment)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,RentCost,Description,PhotoID,Street,City,Country")] Appartment appartment, HttpPostedFileBase photoInput)
         {
-            if (ModelState.IsValid)
+            bool isValid = ModelState.IsValid;
+
+            if (isValid && photoInput != null && photoInput.ContentLength > 0)
             {
+                if (!photoInput.ContentType.StartsWith("image/"))
+                {
+                    isValid = false;
+                    ModelState.AddModelError("PhotoID", "Photo much be an image");
+                }
+
+            }
+
+            if (isValid)
+            {
+
+                if (photoInput != null && photoInput.ContentLength > 0)
+                {
+                    var imageFolder = Server.MapPath("/UploadedImages");
+                    var imageFileName = DateTime.Now.ToString("yyyy-MM-dd_HHmmss_fff") + "_" + photoInput.FileName;
+                    var imagePath = Path.Combine(imageFolder, imageFileName);
+
+                    photoInput.SaveAs(imagePath);
+                    var photo = new Photo()
+                    {
+                        ImageLocation = imageFileName
+
+                    };
+
+                    appartment.Photo = photo;
+                }
+
                 db.Entry(appartment).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

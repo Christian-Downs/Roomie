@@ -3391,3 +3391,23 @@ td.Message-Name-Space.message-text-sent {
 td.Message-Name-Space.message-name-recived {
 	text-align: right;
 }
+button#ownerButton {
+    display: inline-block;
+    padding: 0em 2em 0em 2em;
+    text-align: center;
+    margin: 16px 0px 0px 20px;
+    font-size: 16px;
+}
+
+input.btn.btn-default.User-Create-Button {
+    margin: 0px 0px 0px 13px;
+}
+.col-md-10.RegisterTextAreas {
+    margin: 0em 0em 0em 2em;
+}
+.col-md-10.Property-Button {
+    margin: 0em 0em 0em 2em;
+}
+button.Book-Appointment-Button {
+    margin: 1em 0em 0em 0em;
+}

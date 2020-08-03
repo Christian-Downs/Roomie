@@ -157,9 +157,20 @@ namespace Roomie.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                    CreateUserProfile(model, user);
+                   
+                    if (model.appartmentOwener)
+                    {
+                        CreateAppartmentOwnerProfile(model, user);
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        return RedirectToAction("Create", "Appartments");
 
+                    }
+                    else
+                    {
+                        CreateUserProfile(model, user);
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        return RedirectToAction("Index", "Home");
+                    }
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -168,7 +179,7 @@ namespace Roomie.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
 
-                    return RedirectToAction("Index", "Home");
+                    
                 }
                 AddErrors(result);
             }
@@ -177,10 +188,43 @@ namespace Roomie.Controllers
             return View(model);
         }
 
-        private static void CreateUserProfile(RegisterViewModel model, ApplicationUser user)
+        private  void CreateAppartmentOwnerProfile(RegisterViewModel model, ApplicationUser user)
         {
+            UserManager.AddToRole(user.Id, "Owner");
+            var appartmentOwner = new AppartmentOwner
+            {
+                id=user.Id,
+                EmailAddress = model.Email,                
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                PhoneNumber = model.PhoneNumber
+            };
+
+            using (var db = new RoomieEntities())
+            {
+                try
+                {
+                    db.AppartmentOwners.Add(appartmentOwner);
+                    db.SaveChanges();
+                    var subject = "Thank you for Registering";
+                    var body = "Thank you, " + model.FirstName + ", so much for registering good luck finding a tenant with Roomie!";
+                    MessageSender.SendEmail(model.Email, subject, body, MessageSender.BodyType.Text);
+
+                }
+                catch (Exception e)
+                {
+                    e = e;
+
+                }
+            }
+        }
+
+        private  void CreateUserProfile(RegisterViewModel model, ApplicationUser user)
+        {
+            UserManager.AddToRole(user.Id, "Renter");
             var userProfile = new UserProfile
             {
+
                 EmailAddress = model.Email,
                 Description = model.Description,
                 FirstName = model.FirstName,
