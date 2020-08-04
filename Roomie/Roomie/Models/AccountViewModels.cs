@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Roomie.Models
@@ -90,7 +91,7 @@ namespace Roomie.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
         [Required]
-        [Display(Name ="Phone Number")]
+        [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
         [Display(Name = "Description")]
         public string Description { get; set; }
@@ -99,9 +100,14 @@ namespace Roomie.Models
         public bool PropertyBool { get; set; }
 
         [Required]
-        [Display(Name ="City")]
+        [Display(Name = "City")]
         public string City { get; set; }
 
+        [Display(Name = "Photo")]
+        public Nullable<int> PhotoID { get; set; }
+
+        public virtual Photo Photo
+        { get; set; }
     }
 
     public class ResetPasswordViewModel

@@ -11,8 +11,8 @@
     <hr />*@
     <div class="Profile-Card">
         <div class="Image-Info">
-            <div class="Profile-Image">
-                <img src="http://mywindowshub.com/wp-content/uploads/2015/01/win-10-user-account.png" title="@Model.FirstName" />
+            <div class="Profile-Image-Div">
+                @Html.Action("Details", "Photos", new { id = Model.PhotoID, cssClass = "Profile-Image" })
             </div>
             <div class="Profile-Info">
                 <div class="Profile-Name">

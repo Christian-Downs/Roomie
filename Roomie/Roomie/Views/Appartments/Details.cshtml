@@ -16,25 +16,26 @@
 
 
 
-    <div class="Appartment-Details">
-        @*<h4>Appartment</h4>
-        <hr />*@
-        <iframe @*width="600"
+<div class="Appartment-Details">
+    <iframe @*width="600"
                 height="450"
                 *@="0" style="border:0"
-                src="@mapurl" allowfullscreen
-                class="Map-iframe">
-        </iframe>
+            src="@mapurl" allowfullscreen
+            class="Map-iframe"></iframe>
+    <div id="right">
+        @*<h4>Appartment</h4>
+            <hr />*@
+
         @Html.Action("Details", "Photos", new { id = Model.PhotoID, cssClass = "Appartment-Photo" })
-
-
+    </div>
+    <div id="left">
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.RentCost)
+                Rent Cost
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.RentCost)
+                $@Html.DisplayFor(model => model.RentCost)
             </dd>
 
             <dt>
@@ -77,8 +78,10 @@
                 </button>
             </dt>
         </dl>
-        @using (Html.BeginForm("BookAppointment", "Appartments", new { id=Model.id }, FormMethod.Post, new { id = "bookAppointment" })) { }
+        @using (Html.BeginForm("BookAppointment", "Appartments", new { id = Model.id }, FormMethod.Post, new { id = "bookAppointment" })) { }
     </div>
+    <br style="clear:both;" />
+</div>
 <p>
     @*@Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |*@
     @Html.ActionLink("Back to List", "Index")

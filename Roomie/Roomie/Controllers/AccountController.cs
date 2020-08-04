@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity.Migrations.Sql;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -149,10 +150,12 @@ namespace Roomie.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, HttpPostedFileBase photoInput)
         {
-            if (ModelState.IsValid)
+            bool isValid = ModelState.IsValid;
+            if (isValid)
             {
+                
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -167,9 +170,26 @@ namespace Roomie.Controllers
                     }
                     else
                     {
-                        CreateUserProfile(model, user);
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToAction("Index", "Home");
+                        if (photoInput != null && photoInput.ContentLength > 0)
+                        {
+                            if(!photoInput.ContentType.StartsWith("image/"))
+                            {
+                                var imageFolder = Server.MapPath("/UploadedImages");
+                                var imageFileName = DateTime.Now.ToString("yyyy-MM-DD_HHmmss_fff") + "_" + photoInput.FileName;
+                                var imagePath = Path.Combine(imageFolder, imageFileName);
+
+                                photoInput.SaveAs(imagePath);
+                                var photo = new Photo()
+                                {
+                                    ImageLocation = imageFileName
+                                };
+                                CreateUserProfile(model, user, photo);
+                                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                                return RedirectToAction("Index", "Home");
+                            }
+                            
+
+                        }
                     }
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -219,7 +239,7 @@ namespace Roomie.Controllers
             }
         }
 
-        private  void CreateUserProfile(RegisterViewModel model, ApplicationUser user)
+        private  void CreateUserProfile(RegisterViewModel model, ApplicationUser user, Photo photo)
         {
             UserManager.AddToRole(user.Id, "Renter");
             var userProfile = new UserProfile
@@ -232,7 +252,8 @@ namespace Roomie.Controllers
                 PropertyBool = model.PropertyBool,
                 PhoneNumber = model.PhoneNumber,
                 Id = user.Id,
-                City = model.City
+                City = model.City,
+                Photo=photo
             };
 
             using (var db = new RoomieEntities())

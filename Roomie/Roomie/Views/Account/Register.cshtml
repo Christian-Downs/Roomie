@@ -86,12 +86,21 @@
             </div>
         </div>
     </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.PhotoID, "PhotoID", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" id="photoInput" name="photoInput" placeholder="Upload File" />
 
+
+            @*@Html.DropDownList("PhotoID", null, htmlAttributes: new { @class = "form-control" })*@
+            @Html.ValidationMessageFor(model => model.PhotoID, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Renter Register" class="btn btn-default User-Create-Button" />
-            <button id="ownerButton" class="btn btn-default AppartmentOwner-Create-Button" onclick="appartmentOwnerFunction()">Appartment Owner Create</button>
+            <button id="ownerButton" class="btn btn-default AppartmentOwner-Create-Button" onclick="appartmentOwnerFunction()">Apartment Owner Create</button>
         </div>
     </div>
 

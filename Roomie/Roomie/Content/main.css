@@ -3260,6 +3260,7 @@ label.control-label.col-md-2 {
 .Image-Info {
     display: flex;
     flex-direction: row;
+    height:15em;
 }
 
 .Profile-Image img {
@@ -3274,6 +3275,9 @@ label.control-label.col-md-2 {
     background-color: grey;
     padding: .2em;
     margin: 1em 2em 2em 1em;
+    width: 90%;
+    height: 84%;
+    border-radius: 50%;
 }
 
 .Profile-Info {
@@ -3410,4 +3414,16 @@ input.btn.btn-default.User-Create-Button {
 }
 button.Book-Appointment-Button {
     margin: 1em 0em 0em 0em;
+}
+div#right {
+    float: right;
+    padding:0em 10% 0em 0em
+}
+
+div#left {
+    float: left;
+}
+.Profile-Image-Div {
+    width: 30%;
+    height:100%
 }
