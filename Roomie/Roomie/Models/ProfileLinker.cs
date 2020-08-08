@@ -27,10 +27,10 @@ namespace Roomie.Models
         public string UserLinkedId { get; set; }
         public string LinkedProfile { get; set; }
     
+        public virtual Appartment Appartment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MessageBoard> MessageBoards { get; set; }
         public virtual UserProfile UserProfile { get; set; }
         public virtual UserProfile UserProfile1 { get; set; }
-        public virtual Appartment Appartment { get; set; }
     }
 }

@@ -334,24 +334,9 @@
           <Property Name="ProfileLinkerID" Type="Int32" Nullable="false" />
           <Property Name="MessageID" Type="Int32" />
           <NavigationProperty Name="SingleMessage" Relationship="Self.FK__MessageBo__Messa__48CFD27E" FromRole="MessageBoard" ToRole="SingleMessage" />
-          <NavigationProperty Name="ProfileLinker" Relationship="Self.FK__MessageBo__Profi__47DBAE45" FromRole="MessageBoard" ToRole="ProfileLinker" />
           <NavigationProperty Name="UserProfile" Relationship="RoomieModel.FK__MessageBo__Recie__46E78A0C" FromRole="MessageBoard" ToRole="UserProfile" />
           <NavigationProperty Name="UserProfile1" Relationship="RoomieModel.FK__MessageBo__Sende__45F365D3" FromRole="MessageBoard" ToRole="UserProfile" />
-          </EntityType>
-        <EntityType Name="ProfileLinker">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Liked" Type="Boolean" />
-          <Property Name="Favorited" Type="Boolean" />
-          <Property Name="AppartmentsID" Type="Int32" />
-          <Property Name="UserLinkedId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LinkedProfile" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="MessageBoards" Relationship="Self.FK__MessageBo__Profi__47DBAE45" FromRole="ProfileLinker" ToRole="MessageBoard" />
-          <NavigationProperty Name="UserProfile" Relationship="RoomieModel.FK__ProfileLi__Linke__4BAC3F29" FromRole="ProfileLinker" ToRole="UserProfile" />
-          <NavigationProperty Name="UserProfile1" Relationship="RoomieModel.FK__ProfileLi__UserL__4AB81AF0" FromRole="ProfileLinker" ToRole="UserProfile" />
-          <NavigationProperty Name="Appartment" Relationship="RoomieModel.FK__ProfileLi__Appar__74AE54BC" FromRole="ProfileLinker" ToRole="Appartment" />
+          <NavigationProperty Name="ProfileLinker" Relationship="RoomieModel.FK__MessageBo__Profi__47DBAE45" FromRole="MessageBoard" ToRole="ProfileLinker" />
           </EntityType>
         <EntityType Name="SingleMessage">
           <Key>
@@ -374,29 +359,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__MessageBo__Profi__47DBAE45">
-          <End Role="ProfileLinker" Type="Self.ProfileLinker" Multiplicity="1" />
-          <End Role="MessageBoard" Type="Self.MessageBoard" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProfileLinker">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="MessageBoard">
-              <PropertyRef Name="ProfileLinkerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="RoomieEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Addresses" EntityType="Self.Address" />
           <EntitySet Name="MessageBoards" EntityType="Self.MessageBoard" />
-          <EntitySet Name="ProfileLinkers" EntityType="Self.ProfileLinker" />
           <EntitySet Name="SingleMessages" EntityType="Self.SingleMessage" />
           <AssociationSet Name="FK__MessageBo__Messa__48CFD27E" Association="Self.FK__MessageBo__Messa__48CFD27E">
             <End Role="SingleMessage" EntitySet="SingleMessages" />
-            <End Role="MessageBoard" EntitySet="MessageBoards" />
-          </AssociationSet>
-          <AssociationSet Name="FK__MessageBo__Profi__47DBAE45" Association="Self.FK__MessageBo__Profi__47DBAE45">
-            <End Role="ProfileLinker" EntitySet="ProfileLinkers" />
             <End Role="MessageBoard" EntitySet="MessageBoards" />
           </AssociationSet>
           <EntitySet Name="UserProfiles" EntityType="RoomieModel.UserProfile" />
@@ -412,14 +380,6 @@
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="MessageBoard" EntitySet="MessageBoards" />
           </AssociationSet>
-          <AssociationSet Name="FK__ProfileLi__Linke__4BAC3F29" Association="RoomieModel.FK__ProfileLi__Linke__4BAC3F29">
-            <End Role="UserProfile" EntitySet="UserProfiles" />
-            <End Role="ProfileLinker" EntitySet="ProfileLinkers" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ProfileLi__UserL__4AB81AF0" Association="RoomieModel.FK__ProfileLi__UserL__4AB81AF0">
-            <End Role="UserProfile" EntitySet="UserProfiles" />
-            <End Role="ProfileLinker" EntitySet="ProfileLinkers" />
-          </AssociationSet>
           <EntitySet Name="AppartmentOwners" EntityType="RoomieModel.AppartmentOwner" />
           <EntitySet Name="AspNetUsers" EntityType="RoomieModel.AspNetUser" />
           <AssociationSet Name="fk_userprofile_aspnetusers" Association="RoomieModel.fk_userprofile_aspnetusers">
@@ -431,10 +391,6 @@
             <End Role="Appartment" EntitySet="Appartments" />
             <End Role="AppartmentOwner" EntitySet="AppartmentOwners" />
           </AssociationSet>
-          <AssociationSet Name="FK__ProfileLi__Appar__74AE54BC" Association="RoomieModel.FK__ProfileLi__Appar__74AE54BC">
-            <End Role="Appartment" EntitySet="Appartments" />
-            <End Role="ProfileLinker" EntitySet="ProfileLinkers" />
-          </AssociationSet>
           <EntitySet Name="Photos" EntityType="RoomieModel.Photo" />
           <AssociationSet Name="FK__Appartmen__Photo__7B5B524B" Association="RoomieModel.FK__Appartmen__Photo__7B5B524B">
             <End Role="Photo" EntitySet="Photos" />
@@ -443,6 +399,23 @@
           <AssociationSet Name="FK__UserProfi__Photo__797309D9" Association="RoomieModel.FK__UserProfi__Photo__797309D9">
             <End Role="Photo" EntitySet="Photos" />
             <End Role="UserProfile" EntitySet="UserProfiles" />
+          </AssociationSet>
+          <EntitySet Name="ProfileLinkers" EntityType="RoomieModel.ProfileLinker" />
+          <AssociationSet Name="FK__ProfileLi__Appar__74AE54BC" Association="RoomieModel.FK__ProfileLi__Appar__74AE54BC">
+            <End Role="Appartment" EntitySet="Appartments" />
+            <End Role="ProfileLinker" EntitySet="ProfileLinkers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MessageBo__Profi__47DBAE45" Association="RoomieModel.FK__MessageBo__Profi__47DBAE45">
+            <End Role="ProfileLinker" EntitySet="ProfileLinkers" />
+            <End Role="MessageBoard" EntitySet="MessageBoards" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProfileLi__Linke__4BAC3F29" Association="RoomieModel.FK__ProfileLi__Linke__4BAC3F29">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="ProfileLinker" EntitySet="ProfileLinkers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProfileLi__UserL__4AB81AF0" Association="RoomieModel.FK__ProfileLi__UserL__4AB81AF0">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="ProfileLinker" EntitySet="ProfileLinkers" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="UserProfile">
@@ -462,10 +435,10 @@
           <NavigationProperty Name="Address" Relationship="RoomieModel.FK__UserProfi__Addre__4222D4EF" FromRole="UserProfile" ToRole="Address" />
           <NavigationProperty Name="MessageBoards" Relationship="RoomieModel.FK__MessageBo__Recie__46E78A0C" FromRole="UserProfile" ToRole="MessageBoard" />
           <NavigationProperty Name="MessageBoards1" Relationship="RoomieModel.FK__MessageBo__Sende__45F365D3" FromRole="UserProfile" ToRole="MessageBoard" />
-          <NavigationProperty Name="ProfileLinkers" Relationship="RoomieModel.FK__ProfileLi__Linke__4BAC3F29" FromRole="UserProfile" ToRole="ProfileLinker" />
-          <NavigationProperty Name="ProfileLinkers1" Relationship="RoomieModel.FK__ProfileLi__UserL__4AB81AF0" FromRole="UserProfile" ToRole="ProfileLinker" />
           <NavigationProperty Name="AspNetUser" Relationship="RoomieModel.fk_userprofile_aspnetusers" FromRole="UserProfile" ToRole="AspNetUser" />
           <NavigationProperty Name="Photo" Relationship="RoomieModel.FK__UserProfi__Photo__797309D9" FromRole="UserProfile" ToRole="Photo" />
+          <NavigationProperty Name="ProfileLinkers" Relationship="RoomieModel.FK__ProfileLi__Linke__4BAC3F29" FromRole="UserProfile" ToRole="ProfileLinker" />
+          <NavigationProperty Name="ProfileLinkers1" Relationship="RoomieModel.FK__ProfileLi__UserL__4AB81AF0" FromRole="UserProfile" ToRole="ProfileLinker" />
         </EntityType>
         <Association Name="FK__UserProfi__Addre__4222D4EF">
           <End Type="RoomieModel.Address" Role="Address" Multiplicity="0..1" />
@@ -500,30 +473,6 @@
             </Principal>
             <Dependent Role="MessageBoard">
               <PropertyRef Name="SenderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__ProfileLi__Linke__4BAC3F29">
-          <End Type="RoomieModel.UserProfile" Role="UserProfile" Multiplicity="1" />
-          <End Type="RoomieModel.ProfileLinker" Role="ProfileLinker" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserProfile">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProfileLinker">
-              <PropertyRef Name="LinkedProfile" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__ProfileLi__UserL__4AB81AF0">
-          <End Type="RoomieModel.UserProfile" Role="UserProfile" Multiplicity="1" />
-          <End Type="RoomieModel.ProfileLinker" Role="ProfileLinker" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserProfile">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProfileLinker">
-              <PropertyRef Name="UserLinkedId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -583,8 +532,8 @@
           <Property Name="State" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="AppartmentOwners" Relationship="RoomieModel.FK__Appartmen__Appar__73BA3083" FromRole="Appartment" ToRole="AppartmentOwner" />
-          <NavigationProperty Name="ProfileLinkers" Relationship="RoomieModel.FK__ProfileLi__Appar__74AE54BC" FromRole="Appartment" ToRole="ProfileLinker" />
           <NavigationProperty Name="Photo" Relationship="RoomieModel.FK__Appartmen__Photo__7B5B524B" FromRole="Appartment" ToRole="Photo" />
+          <NavigationProperty Name="ProfileLinkers" Relationship="RoomieModel.FK__ProfileLi__Appar__74AE54BC" FromRole="Appartment" ToRole="ProfileLinker" />
         </EntityType>
         <Association Name="FK__Appartmen__Appar__73BA3083">
           <End Type="RoomieModel.Appartment" Role="Appartment" Multiplicity="0..1" />
@@ -595,18 +544,6 @@
             </Principal>
             <Dependent Role="AppartmentOwner">
               <PropertyRef Name="AppartmentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__ProfileLi__Appar__74AE54BC">
-          <End Type="RoomieModel.Appartment" Role="Appartment" Multiplicity="0..1" />
-          <End Type="RoomieModel.ProfileLinker" Role="ProfileLinker" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Appartment">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="ProfileLinker">
-              <PropertyRef Name="AppartmentsID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -643,6 +580,69 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ProfileLinker">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Liked" Type="Boolean" />
+          <Property Name="Favorited" Type="Boolean" />
+          <Property Name="AppartmentsID" Type="Int32" />
+          <Property Name="UserLinkedId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="LinkedProfile" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Appartment" Relationship="RoomieModel.FK__ProfileLi__Appar__74AE54BC" FromRole="ProfileLinker" ToRole="Appartment" />
+          <NavigationProperty Name="MessageBoards" Relationship="RoomieModel.FK__MessageBo__Profi__47DBAE45" FromRole="ProfileLinker" ToRole="MessageBoard" />
+          <NavigationProperty Name="UserProfile" Relationship="RoomieModel.FK__ProfileLi__Linke__4BAC3F29" FromRole="ProfileLinker" ToRole="UserProfile" />
+          <NavigationProperty Name="UserProfile1" Relationship="RoomieModel.FK__ProfileLi__UserL__4AB81AF0" FromRole="ProfileLinker" ToRole="UserProfile" />
+        </EntityType>
+        <Association Name="FK__ProfileLi__Appar__74AE54BC">
+          <End Type="RoomieModel.Appartment" Role="Appartment" Multiplicity="0..1" />
+          <End Type="RoomieModel.ProfileLinker" Role="ProfileLinker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appartment">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProfileLinker">
+              <PropertyRef Name="AppartmentsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MessageBo__Profi__47DBAE45">
+          <End Type="RoomieModel.ProfileLinker" Role="ProfileLinker" Multiplicity="1" />
+          <End Type="RoomieModel.MessageBoard" Role="MessageBoard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProfileLinker">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MessageBoard">
+              <PropertyRef Name="ProfileLinkerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProfileLi__Linke__4BAC3F29">
+          <End Type="RoomieModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="RoomieModel.ProfileLinker" Role="ProfileLinker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProfileLinker">
+              <PropertyRef Name="LinkedProfile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProfileLi__UserL__4AB81AF0">
+          <End Type="RoomieModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="RoomieModel.ProfileLinker" Role="ProfileLinker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProfileLinker">
+              <PropertyRef Name="UserLinkedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -666,18 +666,6 @@
                 <ScalarProperty Name="RecieverID" ColumnName="RecieverID" />
                 <ScalarProperty Name="ProfileLinkerID" ColumnName="ProfileLinkerID" />
                 <ScalarProperty Name="MessageID" ColumnName="MessageID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProfileLinkers">
-            <EntityTypeMapping TypeName="RoomieModel.ProfileLinker">
-              <MappingFragment StoreEntitySet="ProfileLinker">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Liked" ColumnName="Liked" />
-                <ScalarProperty Name="Favorited" ColumnName="Favorited" />
-                <ScalarProperty Name="AppartmentsID" ColumnName="AppartmentsID" />
-                <ScalarProperty Name="UserLinkedId" ColumnName="UserLinkedId" />
-                <ScalarProperty Name="LinkedProfile" ColumnName="LinkedProfile" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -756,6 +744,18 @@
               <MappingFragment StoreEntitySet="Photo">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="ImageLocation" ColumnName="ImageLocation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProfileLinkers">
+            <EntityTypeMapping TypeName="RoomieModel.ProfileLinker">
+              <MappingFragment StoreEntitySet="ProfileLinker">
+                <ScalarProperty Name="LinkedProfile" ColumnName="LinkedProfile" />
+                <ScalarProperty Name="UserLinkedId" ColumnName="UserLinkedId" />
+                <ScalarProperty Name="AppartmentsID" ColumnName="AppartmentsID" />
+                <ScalarProperty Name="Favorited" ColumnName="Favorited" />
+                <ScalarProperty Name="Liked" ColumnName="Liked" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

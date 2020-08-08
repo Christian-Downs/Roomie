@@ -20,8 +20,8 @@ namespace Roomie.Models
         public Nullable<int> MessageID { get; set; }
     
         public virtual SingleMessage SingleMessage { get; set; }
-        public virtual ProfileLinker ProfileLinker { get; set; }
         public virtual UserProfile UserProfile { get; set; }
         public virtual UserProfile UserProfile1 { get; set; }
+        public virtual ProfileLinker ProfileLinker { get; set; }
     }
 }

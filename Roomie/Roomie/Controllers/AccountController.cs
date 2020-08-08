@@ -153,59 +153,91 @@ namespace Roomie.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model, HttpPostedFileBase photoInput)
         {
             bool isValid = ModelState.IsValid;
-            if (isValid)
-            {
+            //if (isValid)
+            //{
                 
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                //var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                //var result = await UserManager.CreateAsync(user, model.Password);
+                ////    if (result.Succeeded)
+                //    {
+
+                //        if (model.appartmentOwener)
+                //        {
+                //            CreateAppartmentOwnerProfile(model, user);
+                //            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                //            return RedirectToAction("Create", "Appartments");
+
+                //        }
+                //        else
+                //        {
+                //            if (photoInput != null && photoInput.ContentLength > 0)
+                //            {
+                //                if(!photoInput.ContentType.StartsWith("image/"))
+                //                {
+                //                    var imageFolder = Server.MapPath("/UploadedImages");
+                //                    var imageFileName = DateTime.Now.ToString("yyyy-MM-DD_HHmmss_fff") + "_" + photoInput.FileName;
+                //                    var imagePath = Path.Combine(imageFolder, imageFileName);
+
+                //                    photoInput.SaveAs(imagePath);
+                //                    var photo = new Photo()
+                //                    {
+                //                        ImageLocation = imageFileName
+                //                    };
+                //                    CreateUserProfile(model, user, photo);
+                //                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                //                    return RedirectToAction("Index", "Home");
+                //                }
+
+
+                //            }
+                //        }
+
+                //        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                //        // Send an email with this link
+                //        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                //        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                //        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+
+
+                //    }
+                //    AddErrors(result);
+                //}
+                if (ModelState.IsValid)
                 {
-                   
-                    if (model.appartmentOwener)
+                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
                     {
-                        CreateAppartmentOwnerProfile(model, user);
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToAction("Create", "Appartments");
 
-                    }
-                    else
-                    {
-                        if (photoInput != null && photoInput.ContentLength > 0)
+                        if (model.appartmentOwener)
                         {
-                            if(!photoInput.ContentType.StartsWith("image/"))
-                            {
-                                var imageFolder = Server.MapPath("/UploadedImages");
-                                var imageFileName = DateTime.Now.ToString("yyyy-MM-DD_HHmmss_fff") + "_" + photoInput.FileName;
-                                var imagePath = Path.Combine(imageFolder, imageFileName);
-
-                                photoInput.SaveAs(imagePath);
-                                var photo = new Photo()
-                                {
-                                    ImageLocation = imageFileName
-                                };
-                                CreateUserProfile(model, user, photo);
-                                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                                return RedirectToAction("Index", "Home");
-                            }
-                            
+                            CreateAppartmentOwnerProfile(model, user);
+                            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                            return RedirectToAction("Create", "Appartments");
 
                         }
+                        else
+                        {
+                            CreateUserProfile(model, user);
+                            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                            return RedirectToAction("Index", "Home");
+                        }
+
+                        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+
+
                     }
-
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-
-                    
+                    AddErrors(result);
                 }
-                AddErrors(result);
-            }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+                // If we got this far, something failed, redisplay form
+                return View(model);
         }
 
         private  void CreateAppartmentOwnerProfile(RegisterViewModel model, ApplicationUser user)
@@ -239,7 +271,7 @@ namespace Roomie.Controllers
             }
         }
 
-        private  void CreateUserProfile(RegisterViewModel model, ApplicationUser user, Photo photo)
+        private  void CreateUserProfile(RegisterViewModel model, ApplicationUser user/*, Photo photo*/)
         {
             UserManager.AddToRole(user.Id, "Renter");
             var userProfile = new UserProfile
@@ -252,8 +284,8 @@ namespace Roomie.Controllers
                 PropertyBool = model.PropertyBool,
                 PhoneNumber = model.PhoneNumber,
                 Id = user.Id,
-                City = model.City,
-                Photo=photo
+                City = model.City//,
+                //Photo=photo
             };
 
             using (var db = new RoomieEntities())
