@@ -1,0 +1,59 @@
+﻿@using Microsoft.AspNet.Identity;
+@model IEnumerable<Roomie.Models.MessageBoard>
+
+@{
+    ViewBag.Title = "MessagesForUser";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @*Sender*@
+        </th>
+        <th class="Message-Time-Space">
+            @*Time*@
+        </th>
+        <th class="Message-Text-Space">
+            @*Content*@
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        bool wasSent = (item.SenderID == User.Identity.GetUserId());
+        string sentClass;
+        if (wasSent)
+        {
+            sentClass = "Message-Text-Sent";
+            <tr class="@sentClass">
+                <td class="Message-Text-Space message-name-sent">
+                    @Html.DisplayFor(modelItem => item.SingleMessage.MessageText)
+                </td>
+                <td class="Message-Time-Space message-time-sent">
+                    @Html.DisplayFor(modelItem => item.SingleMessage.TimeOfMessage)
+                </td>
+                <td class="Message-Name-Space message-text-sent">
+                    @Html.DisplayFor(modelItem => item.UserProfile.FirstName)
+                </td>
+            </tr>
+        }
+        else
+        {
+            sentClass = "Message-Text-Recieved";
+            <tr class="@sentClass">
+                <td class="Message-Name-Space message-name-recived">
+                    @Html.DisplayFor(modelItem => item.UserProfile.FirstName)
+                </td>
+                <td class="Message-Time-Space message-Time-recived">
+                    @Html.DisplayFor(modelItem => item.SingleMessage.TimeOfMessage)
+                </td>
+                <td class="Message-Text-Space message-Text-recived">
+                    @Html.DisplayFor(modelItem => item.SingleMessage.MessageText)
+                </td>
+            </tr>
+        }
+
+    }
+
+</table>
+@Html.Action("Create", "MessageBoards", new { id = ViewBag.recieverID })

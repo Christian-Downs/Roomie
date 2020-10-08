@@ -1,0 +1,20 @@
+﻿@model Roomie.Models.Photo
+
+
+@{ 
+    string imagePath;
+    if (Model != null)
+    {
+        imagePath = Url.Content("~/UploadedImages/" + Model.ImageLocation);
+    }
+    else
+    {
+        imagePath = "";
+    }
+
+
+
+}
+
+
+<img src="@imagePath" class="@ViewBag.cssClass" />

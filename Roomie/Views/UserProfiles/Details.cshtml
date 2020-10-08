@@ -1,0 +1,155 @@
+﻿@model Roomie.Models.UserProfile
+
+@{
+    ViewBag.Title = Model.FirstName + " " + Model.LastName;
+}
+
+
+
+<div>
+    @*<h4>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h4>
+    <hr />*@
+    <div class="Profile-Card">
+        <div class="Image-Info">
+            <div class="Profile-Image-Div">
+                @Html.Action("Details", "Photos", new { id = Model.PhotoID, cssClass = "Profile-Image" })
+            </div>
+            <div class="Profile-Info">
+                <div class="Profile-Name">
+                    @Model.FirstName @Model.LastName
+                </div>
+                <div class="Profile-City">
+                    City: @(Model.City)
+                </div>
+                <div class="Profile-Property Has-Property@(Model.PropertyBool.ToString())">
+                    @if (Model.PropertyBool)
+                    {
+                        <text>Has Property</text>
+                    }
+                    else
+                    {
+                        <text>Looking for property</text>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="Profile-Description">
+            @Model.Description
+        </div>
+        <div class="Profile-Buttons-Div">
+            <div class="col-md-4 Profile-Buttons">
+                <button class="Skip-Button" onclick="submitSkip()">
+                    Skip
+                </button>
+            </div>
+            <div class="col-md-4 Profile-Buttons">
+                <button class="Favorite-Button" onclick="submitFavorite()">
+                    Favorite
+                </button>
+            </div>
+            <div class="col-md-4 Profile-Buttons">
+                <button class="Like-Button" onclick="submitLike()">
+                    Like
+                </button>
+            </div>
+        </div>
+    </div>
+
+    @*<dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PhoneNumber)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.EmailAddress)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EmailAddress)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PropertyBool)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PropertyBool)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Address.City)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Address.City)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Photo.ImageLocation)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Photo.ImageLocation)
+            </dd>
+
+
+        </dl>*@
+    @using (Html.BeginForm("Like", "UserProfiles", new { id = Model.Id }, FormMethod.Post, new { id = "form" })) { }
+    @using (Html.BeginForm("Favorite", "UserProfiles", new { id = Model.Id }, FormMethod.Post, new { id = "Favorite" })) { }
+    @using (Html.BeginForm("Skip", "UserProfiles", new { id = Model.Id }, FormMethod.Get, new { id = "Skip" })) { }
+
+</div>
+@*<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@
+
+
+@section scripts{
+    <script type="text/javascript">
+        function submitLike() {
+            $("#form").submit();
+
+        }
+        function submitFavorite() {
+            $("#Favorite").submit();
+        }
+
+        function submitSkip() {
+            $("#Skip").submit();
+        }
+
+
+
+    </script>
+    
+
+}

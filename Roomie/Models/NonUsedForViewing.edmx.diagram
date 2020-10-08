@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b4f3b9b366eb424cb3c061e43600d306" Name="Diagram1" ZoomLevel="103" >
+        <EntityTypeShape EntityType="NonUsedForViewing.AspNetUsers" Width="1.5" PointX="2.75" PointY="2.125" />
+        <EntityTypeShape EntityType="NonUsedForViewing.Appartments" Width="1.5" PointX="11.75" PointY="5.25" />
+        <EntityTypeShape EntityType="NonUsedForViewing.User" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NonUsedForViewing.ProfileLinker" Width="1.5" PointX="8.625" PointY="1" />
+        <EntityTypeShape EntityType="NonUsedForViewing.MessageBoard" Width="1.5" PointX="13.75" PointY="2.25" />
+        <AssociationConnector Association="NonUsedForViewing.UserMessages" />
+        <AssociationConnector Association="NonUsedForViewing.Reciver" />
+        <AssociationConnector Association="NonUsedForViewing.AspNetUsersUser" />
+        <EntityTypeShape EntityType="NonUsedForViewing.Address" Width="1.5" PointX="7.75" PointY="6.5" />
+        <AssociationConnector Association="NonUsedForViewing.AddressUser" />
+        <AssociationConnector Association="NonUsedForViewing.ProfileLinkerUser" />
+        <AssociationConnector Association="NonUsedForViewing.AppartmentsAddress" />
+        <AssociationConnector Association="NonUsedForViewing.ProfileLinkerMessages" />
+        <AssociationConnector Association="NonUsedForViewing.UserProfileLinker" />
+        <AssociationConnector Association="NonUsedForViewing.ProfileLinkerAppartments" />
+        <AssociationConnector Association="NonUsedForViewing.AppartmentsProfileLinker" />
+        <EntityTypeShape EntityType="NonUsedForViewing.Photo" Width="1.5" PointX="14.625" PointY="5.625" />
+        <EntityTypeShape EntityType="NonUsedForViewing.Message" Width="1.5" PointX="17.625" PointY="3.5" />
+        <AssociationConnector Association="NonUsedForViewing.MessageMessages" />
+        <AssociationConnector Association="NonUsedForViewing.UserPhoto" />
+        <AssociationConnector Association="NonUsedForViewing.PhotoAppartments" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

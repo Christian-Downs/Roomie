@@ -292,7 +292,6 @@
     <Content Include="Models\RoomieModel.edmx.diagram">
       <DependentUpon>RoomieModel.edmx</DependentUpon>
     </Content>
-    <None Include="Properties\PublishProfiles\RoomieChristianDowns - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\main.css" />

@@ -1,0 +1,75 @@
+﻿<!DOCTYPE HTML>
+<!--
+    Intensify by TEMPLATED
+    templated.co
+    Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="~/Content/main.css" />
+</head>
+<body class="subpage">
+
+    <!-- Header -->
+    <header id="header">
+        <nav class="left">
+            <a href="#menu"><span>Menu</span></a>
+        </nav>
+        @*<a href="~/Views/Home/Index.cshtml" class="logo">Roomie</a>*@
+        @Html.ActionLink("Roomie", "Index", "Home", null, new { @class = "logo" })
+        <nav class="right">
+            @Html.Partial("_LoginPartial")
+        </nav>
+    </header>
+
+
+    <!-- Menu -->    
+    <div>
+        <nav id="menu">
+            <ul class="links">
+                <li>@Html.ActionLink("Find People", "Index", "UserProfiles")</li>
+                <li>@Html.ActionLink("Find A Place", "Index", "Appartments")</li>
+                <li>@Html.ActionLink("Liked People", "LikedPeople", "UserProfiles") </li>
+            </ul>
+            @if (!Request.IsAuthenticated)
+            {<ul class="actions vertical">
+                <li>@Html.ActionLink("Login", "Login", "Account",null,new {@class="button fit" })
+                @*<a href="#" class="button fit">Login</a>*@</li>
+            </ul>
+            }
+
+
+
+
+        </nav>
+    </div>
+    <div class="Main-Body-Content">
+        @RenderBody()
+    </div>
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="inner">
+            <h2>Get In Touch</h2>
+            <ul class="actions">
+                <li><span class="icon fa-phone"></span> <a href="#">(518) 879-6827</a></li>
+                <li><span class="icon fa-envelope"></span> <a href="#">Christian.Downs.15@gmail.com</a></li>
+                <li><span class="icon fa-map-marker"></span> Troy, IL 62294</li>
+            </ul>
+        </div>
+        <div class="copyright">
+            &copy; Roomie. Design <a href="https://templated.co">TEMPLATED</a>. Images <a href="https://unsplash.com">Unsplash</a>.
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jquery.scrolly.min.js"></script>
+    <script src="~/Scripts/skel.min.js"></script>
+    <script src="~/Scripts/util.js"></script>
+    <script src="~/Scripts/main.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

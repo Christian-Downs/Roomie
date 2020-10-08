@@ -1,0 +1,361 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="NonUsedForViewing.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="NonUsedForViewingTargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="NonUsedForViewing" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="NonUsedForViewingContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetUsers" EntityType="NonUsedForViewing.AspNetUsers" />
+          <EntitySet Name="OtherProfiles" EntityType="NonUsedForViewing.OtherProfiles" />
+          <EntitySet Name="Appartments1" EntityType="NonUsedForViewing.Appartments" />
+          <EntitySet Name="Users" EntityType="NonUsedForViewing.User" />
+          <EntitySet Name="ProfileLinkers" EntityType="NonUsedForViewing.ProfileLinker" />
+          <EntitySet Name="MessageBoards" EntityType="NonUsedForViewing.MessageBoard" />
+          <AssociationSet Name="Sender" Association="NonUsedForViewing.UserMessages">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Messages" EntitySet="MessageBoards" />
+          </AssociationSet>
+          <AssociationSet Name="Reciver" Association="NonUsedForViewing.Reciver">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Messages" EntitySet="MessageBoards" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUsersUser" Association="NonUsedForViewing.AspNetUsersUser">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="Addresses" EntityType="NonUsedForViewing.Address" />
+          <AssociationSet Name="AddressUser" Association="NonUsedForViewing.AddressUser">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="Linked" Association="NonUsedForViewing.ProfileLinkerUser">
+            <End Role="ProfileLinker" EntitySet="ProfileLinkers" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="AppartmentsAddress" Association="NonUsedForViewing.AppartmentsAddress">
+            <End Role="Appartments" EntitySet="Appartments1" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="ProfileLinkerMessages" Association="NonUsedForViewing.ProfileLinkerMessages">
+            <End Role="ProfileLinker" EntitySet="ProfileLinkers" />
+            <End Role="Messages" EntitySet="MessageBoards" />
+          </AssociationSet>
+          <AssociationSet Name="UserProfileLinker" Association="NonUsedForViewing.UserProfileLinker">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ProfileLinker" EntitySet="ProfileLinkers" />
+          </AssociationSet>
+          <AssociationSet Name="ProfileLinkerAppartments" Association="NonUsedForViewing.ProfileLinkerAppartments">
+            <End Role="ProfileLinker" EntitySet="ProfileLinkers" />
+            <End Role="Appartments" EntitySet="Appartments1" />
+          </AssociationSet>
+          <AssociationSet Name="AppartmentsProfileLinker" Association="NonUsedForViewing.AppartmentsProfileLinker">
+            <End Role="Appartments" EntitySet="Appartments1" />
+            <End Role="ProfileLinker" EntitySet="ProfileLinkers" />
+          </AssociationSet>
+          <EntitySet Name="Photos" EntityType="NonUsedForViewing.Photo" />
+          <EntitySet Name="Messages1" EntityType="NonUsedForViewing.Message" />
+          <AssociationSet Name="MessageMessages" Association="NonUsedForViewing.MessageMessages">
+            <End Role="Message" EntitySet="Messages1" />
+            <End Role="Messages" EntitySet="MessageBoards" />
+          </AssociationSet>
+          <AssociationSet Name="UserPhoto" Association="NonUsedForViewing.UserPhoto">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Photo" EntitySet="Photos" />
+          </AssociationSet>
+          <AssociationSet Name="PhotoAppartments" Association="NonUsedForViewing.PhotoAppartments">
+            <End Role="Photo" EntitySet="Photos" />
+            <End Role="Appartments" EntitySet="Appartments1" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="User" Relationship="NonUsedForViewing.AspNetUsersUser" FromRole="AspNetUsers" ToRole="User" />
+        </EntityType>
+        <EntityType Name="OtherProfiles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <Property Name="Address" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="LikedProfilesId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Appartments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Address" Relationship="NonUsedForViewing.AppartmentsAddress" FromRole="Appartments" ToRole="Address" />
+          <Property Name="RentCost" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <NavigationProperty Name="ProfileLinker" Relationship="NonUsedForViewing.ProfileLinkerAppartments" FromRole="Appartments" ToRole="ProfileLinker" />
+          <Property Name="ProfileLinkerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ProfileLinkers" Relationship="NonUsedForViewing.AppartmentsProfileLinker" FromRole="Appartments" ToRole="ProfileLinker" />
+          <NavigationProperty Name="Photo" Relationship="NonUsedForViewing.PhotoAppartments" FromRole="Appartments" ToRole="Photo" />
+          <Property Name="PhotoId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="Messages" Relationship="NonUsedForViewing.UserMessages" FromRole="User" ToRole="Messages" />
+          <NavigationProperty Name="Messages1" Relationship="NonUsedForViewing.Reciver" FromRole="User" ToRole="Messages" />
+          <NavigationProperty Name="AspNetUser" Relationship="NonUsedForViewing.AspNetUsersUser" FromRole="User" ToRole="AspNetUsers" />
+          <Property Name="FirstName" Type="String" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="PropertyBool" Type="String" Nullable="false" />
+          <NavigationProperty Name="Address" Relationship="NonUsedForViewing.AddressUser" FromRole="User" ToRole="Address" />
+          <Property Name="AddressId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ProfileLinker1" Relationship="NonUsedForViewing.ProfileLinkerUser" FromRole="User" ToRole="ProfileLinker" />
+          <Property Name="ProfileLinkerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ProfileLinkers" Relationship="NonUsedForViewing.UserProfileLinker" FromRole="User" ToRole="ProfileLinker" />
+          <NavigationProperty Name="Photo" Relationship="NonUsedForViewing.UserPhoto" FromRole="User" ToRole="Photo" />
+          <Property Name="PhotoId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProfileLinker">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Users" Relationship="NonUsedForViewing.ProfileLinkerUser" FromRole="ProfileLinker" ToRole="User" />
+          <NavigationProperty Name="Messages" Relationship="NonUsedForViewing.ProfileLinkerMessages" FromRole="ProfileLinker" ToRole="Messages" />
+          <Property Name="Liked" Type="String" Nullable="false" />
+          <Property Name="Favorited" Type="String" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="NonUsedForViewing.UserProfileLinker" FromRole="ProfileLinker" ToRole="User" />
+          <Property Name="UserLinkerId" Type="String" Nullable="false" />
+          <Property Name="LinkedProfile" Type="String" Nullable="false" />
+          <NavigationProperty Name="Appartments" Relationship="NonUsedForViewing.ProfileLinkerAppartments" FromRole="ProfileLinker" ToRole="Appartments" />
+          <NavigationProperty Name="Appartment" Relationship="NonUsedForViewing.AppartmentsProfileLinker" FromRole="ProfileLinker" ToRole="Appartments" />
+          <Property Name="AppartmentsId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MessageBoard">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="User" Relationship="NonUsedForViewing.UserMessages" FromRole="Messages" ToRole="User" />
+          <Property Name="SenderID" Type="String" Nullable="false" />
+          <NavigationProperty Name="User1" Relationship="NonUsedForViewing.Reciver" FromRole="Messages" ToRole="User" />
+          <Property Name="RecieverID" Type="String" Nullable="false" />
+          <NavigationProperty Name="ProfileLinker" Relationship="NonUsedForViewing.ProfileLinkerMessages" FromRole="Messages" ToRole="ProfileLinker" />
+          <Property Name="ProfileLinkerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Message" Relationship="NonUsedForViewing.MessageMessages" FromRole="Messages" ToRole="Message" />
+          <Property Name="MessageId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="UserMessages">
+          <End Type="NonUsedForViewing.User" Role="User" Multiplicity="1" />
+          <End Type="NonUsedForViewing.MessageBoard" Role="Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="SenderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Reciver">
+          <End Type="NonUsedForViewing.User" Role="User" Multiplicity="1" />
+          <End Type="NonUsedForViewing.MessageBoard" Role="Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="RecieverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUsersUser">
+          <End Type="NonUsedForViewing.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="NonUsedForViewing.User" Role="User" Multiplicity="0..1" />
+        </Association>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Users" Relationship="NonUsedForViewing.AddressUser" FromRole="Address" ToRole="User" />
+          <Property Name="City" Type="String" Nullable="false" />
+          <Property Name="Country" Type="String" Nullable="false" />
+          <Property Name="Street" Type="String" Nullable="false" />
+          <NavigationProperty Name="Appartment" Relationship="NonUsedForViewing.AppartmentsAddress" FromRole="Address" ToRole="Appartments" />
+        </EntityType>
+        <Association Name="AddressUser">
+          <End Type="NonUsedForViewing.Address" Role="Address" Multiplicity="1" />
+          <End Type="NonUsedForViewing.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProfileLinkerUser">
+          <End Type="NonUsedForViewing.ProfileLinker" Role="ProfileLinker" Multiplicity="1" />
+          <End Type="NonUsedForViewing.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProfileLinker">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ProfileLinkerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AppartmentsAddress">
+          <End Type="NonUsedForViewing.Appartments" Role="Appartments" Multiplicity="1" />
+          <End Type="NonUsedForViewing.Address" Role="Address" Multiplicity="1" />
+        </Association>
+        <Association Name="ProfileLinkerMessages">
+          <End Type="NonUsedForViewing.ProfileLinker" Role="ProfileLinker" Multiplicity="1" />
+          <End Type="NonUsedForViewing.MessageBoard" Role="Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProfileLinker">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="ProfileLinkerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserProfileLinker">
+          <End Type="NonUsedForViewing.User" Role="User" Multiplicity="1" />
+          <End Type="NonUsedForViewing.ProfileLinker" Role="ProfileLinker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProfileLinker">
+              <PropertyRef Name="UserLinkerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProfileLinkerAppartments">
+          <End Type="NonUsedForViewing.ProfileLinker" Role="ProfileLinker" Multiplicity="1" />
+          <End Type="NonUsedForViewing.Appartments" Role="Appartments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProfileLinker">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appartments">
+              <PropertyRef Name="ProfileLinkerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AppartmentsProfileLinker">
+          <End Type="NonUsedForViewing.Appartments" Role="Appartments" Multiplicity="1" />
+          <End Type="NonUsedForViewing.ProfileLinker" Role="ProfileLinker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appartments">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProfileLinker">
+              <PropertyRef Name="AppartmentsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Photo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Users" Relationship="NonUsedForViewing.UserPhoto" FromRole="Photo" ToRole="User" />
+          <NavigationProperty Name="Appartments" Relationship="NonUsedForViewing.PhotoAppartments" FromRole="Photo" ToRole="Appartments" />
+          <Property Name="ImageLocation" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Messages" Relationship="NonUsedForViewing.MessageMessages" FromRole="Message" ToRole="Messages" />
+          <Property Name="TimeOfMessage" Type="DateTime" Nullable="false" />
+          <Property Name="MessageText" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="MessageMessages">
+          <End Type="NonUsedForViewing.Message" Role="Message" Multiplicity="1" />
+          <End Type="NonUsedForViewing.MessageBoard" Role="Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Message">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="MessageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserPhoto">
+          <End Type="NonUsedForViewing.User" Role="User" Multiplicity="*" />
+          <End Type="NonUsedForViewing.Photo" Role="Photo" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Photo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="PhotoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PhotoAppartments">
+          <End Type="NonUsedForViewing.Photo" Role="Photo" Multiplicity="1" />
+          <End Type="NonUsedForViewing.Appartments" Role="Appartments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Photo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appartments">
+              <PropertyRef Name="PhotoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="NonUsedForViewing" />
+        <Alias Key="Target" Value="NonUsedForViewing.Store" />
+        <EntityContainerMapping CdmEntityContainer="NonUsedForViewingContainer" StorageEntityContainer="NonUsedForViewingTargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
