@@ -1,8 +1,47 @@
-# Roomie
-Hello welcome to Roomie! This program is a social-connector app using C# ADO.NET MVC and SQL server to connect users to other users for the purpose of finding a roommate and an apartment. How it works is, someone would go to the website and be prompted to sign in or register. If they choose to register they will then receive and email confirming the registration. After registration, the user is then directed to the home page of the website. It shows a profile card with the name, a picture of them, the city that the user is looking for, if they own a property or not and a description section where they describe some other information about themselves. Then the user can choose weather to like, favorite or skip the profile card. If the player chooses to like or favorite then the profile is moved to the liked people tab in the nav bar, also if the user favorites a profile an email is sent out to the profile’s email to inform them that someone favorited them. After the user has connected with a few profiles they can go to the liked people section in the side nav bar. Here they can look at the profiles they liked and then chat with them in the website's chat room functionality. Now, the user has someone they are interested in rooming with, they can now go over to the apartment section and view apartments in their area. Inside each apartment details page there is an embedded google map, that uses google’s embedded map api, that shows a satellite image of the apartments location, along with information of the apartment (such as pricing location and other information) and a photo of the apartment. There is also a button that allows the user to book appointments with the realtor however since there were no realtors involved in making this it just gives an alert. 
+# Roomie - A Social Connector Application for Roommate and Apartment Matching
+<b>Project Overview:</b>
 
-Now, the apartments are made by a different type of user then the renter users they are called appartmentOwners in the code the registration is the same process however there are two buttons on the registration page one for renters and one for owners. After the apartment owner registers they are then redirected to an apartment creation page that you put in all the information for the house including a photo and it is saved to the database for future viewing by the renters.
+Roomie is an innovative web application designed to connect users seeking roommates and apartments. The platform streamlines the process of finding compatible roommates and suitable living spaces by offering a user-friendly interface and a suite of interactive features. Developed using C# ADO.NET, ASP.NET MVC, and SQL Server, Roomie offers a robust and responsive user experience.
 
-Thank you for reading and coming to see Roomie! If you have any questions you can message me on LinkedIn at https://www.linkedin.com/in/christian-downs1/
+<b>Key Features:</b>
+<ol>
+<li><b>User Authentication and Registration:</b></li>
 
-Have a good day!
+  <ul>
+    <li>Secure sign-in and registration process with email confirmation.</li>
+    <li>Separate registration workflows for regular users (renters) and apartment owners, enhancing the platform's versatility.</li>
+    </ul>
+  <li><b>Profile Management:</b></li>
+
+  <ul>
+    <li>Personalized user profiles featuring photos, location preferences, property ownership status, and descriptive bios.</li>
+    <li>Interactive profile cards allowing users to like, favorite, or skip, facilitating a tailored roommate search experience.</li>
+  </ul>
+  <li><b>Real-time Notifications and Communication:</b></li>
+
+  <ul>
+    <li>Email notifications sent to users when their profiles are favorited, fostering engagement and interaction.</li>
+     <li>Integrated chat functionality, enabling users to communicate directly within the platform, ensuring privacy and convenience.</li>
+  </ul>
+<li><b>Apartment Browsing and Details:</b></li>
+
+ <ul>
+    <li>Comprehensive apartment listings with detailed descriptions, pricing, photos, and owner information.</li>
+    <li>Embedded Google Maps API providing satellite imagery of apartment locations, enhancing the decision-making process.</li>
+    <li>Facility to book appointments with realtors (simulated for demonstration purposes).</li>
+ </ul>
+<li><b>Apartment Listing Management for Owners:</b></li>
+
+<ul><li>Dedicated apartment creation module for owners, empowering them to list properties with detailed information and photos, directly contributing to the platform's content.</li></ul>
+</ol>
+<b>Technical Highlights:</b>
+<ul>
+  <li>Mastered full-stack web development using C#, ADO.NET, ASP.NET MVC, and SQL Server, ensuring a seamless, dynamic user experience.</li>
+  <li>Implemented REST API calls for enhanced functionality, including real-time notifications and Google Maps integration.</li>
+  <li>Emphasized security and data integrity through robust user authentication and validation mechanisms.</li>
+</ul>
+<b>Conclusion:</b>
+
+Roomie represents a comprehensive solution for roommate and apartment matching, reflecting a deep understanding of user needs and technical prowess in software development. For inquiries or further discussion, feel free to connect on LinkedIn: <a href = "https://www.linkedin.com/in/christian-downs1/">Christian Downs</a>.
+
+Have a great day!
